@@ -1,0 +1,16 @@
+station_name,description,is_active
+Grill Station,Main grilling area for burgers and steaks,true
+Salad Station,Cold prep area for salads and appetizers,true
+Pastry Station,Dessert and baking section,true
+Pasta Station,Boiling and sauce preparation,true
+Deep Fry Station,Frying area for chips and snacks,true
+Saute Station,Pan-frying and sautéing vegetables and proteins,true
+Pizza Station,Dough stretching baking and pizza assembly,true
+Sushi Station,Raw fish preparation and sushi rolling,true
+Butcher Station,Meat cutting and portioning,true
+Seafood Station,Cleaning and prepping fish and shellfish,true
+Soup Station,Slow cooking broths and hot soups,true
+Plating Station,Final garnish and dish assembly before serving,true
+Prep Station,General chopping peeling and ingredient prep,true
+Beverage Station,Coffee smoothies and drink preparation,true
+Expeditor Station,Quality control and order management,true
