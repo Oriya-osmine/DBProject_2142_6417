@@ -14,10 +14,10 @@ services:
       - "5432:5432"
     volumes:
       - ./init-db:/docker-entrypoint-initdb.d
-      - "./שלב א/Data:/data"                
-      - "./שלב א/DataImportFiles:/data/import"
-      - "./שלב א/mockarooFiles:/data/mockaroo"
-      - "./שלב א/Programing:/data/programing"
+      - ./A:/data/A
+      - ./A/DataImportFiles:/data/import
+      - ./A/mockarooFiles:/data/mockaroo
+      - ./A/Programing:/data/programing
       - postgres_data:/var/lib/postgresql/data
     networks:
       - kids_network
