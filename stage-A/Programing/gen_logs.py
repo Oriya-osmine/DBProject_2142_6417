@@ -7,7 +7,7 @@ def generate_logs(num_records=20010):
     Creates SQL INSERT statements for the food_prep_log table.
     Generates 20,000+ records as per project requirements.
     """
-    output_file = "food_prep_log_data.sql"
+    output_file = "../DATA/food_prep_log_data.sql"
     notes_pool = ['Perfectly cooked', 'Needs more salt', 'Standard prep', 'Extra crispy', 'Quick prep', 'Excellent quality', 'Good presentation', 'Checked and approved', '']
 
     def random_date():

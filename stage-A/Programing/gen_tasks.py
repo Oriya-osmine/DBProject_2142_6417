@@ -6,7 +6,7 @@ def generate_tasks(num_records=20010):
     Creates SQL INSERT statements for the preparation_task table.
     Generates 20,000+ records as per project requirements.
     """
-    output_file = "preparation_task_data.sql"
+    output_file = "../DATA/preparation_task_data.sql"
     descriptions = ['Chop onions', 'Grill patties', 'Prep salad', 'Boil pasta', 'Clean fryer', 
                     'Slice tomatoes', 'Dice bell peppers', 'Season meat', 'Heat oil', 'Assemble platter',
                     'Blanch vegetables', 'Marinate chicken', 'Check temperature', 'Plate garnish']

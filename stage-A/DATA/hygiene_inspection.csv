@@ -1,0 +1,511 @@
+station_id,inspector_id,inspection_date,next_inspection_date,cleanliness_score,temperature_check,status,comments
+9,45,2025-02-12,2025-02-23,4.1,4.61,Fridge slightly warm,
+10,9,2025-08-13,2025-09-09,4.0,14.51,All clean,Deep clean needed
+3,42,2025-01-25,2025-02-24,3.1,8.29,Good,OK
+4,47,2025-01-23,2025-02-19,4.0,14.82,Needs improvement,Deep clean needed
+1,18,2025-03-19,2025-04-03,4.3,23.12,Perfect condition,Deep clean needed
+2,32,2025-04-20,2025-05-20,4.4,22.93,Passed inspection,Deep clean needed
+10,31,2025-01-20,2025-02-02,3.8,18.03,Good,OK
+4,3,2025-08-30,2025-09-20,5.4,7.5,All clean,Deep clean needed
+5,39,2025-10-16,2025-11-07,5.5,4.32,Needs improvement,Watch fridge temp
+7,3,2025-05-02,2025-05-15,3.8,8.67,Fridge slightly warm,Watch fridge temp
+2,46,2025-03-19,2025-04-02,3.5,11.66,All clean,Watch fridge temp
+12,2,2025-02-21,2025-03-06,4.0,17.66,Good,
+3,46,2026-01-31,2026-02-08,4.7,18.34,Good,Deep clean needed
+1,23,2025-12-26,2026-01-17,5.7,24.92,Passed inspection,
+8,33,2025-04-06,2025-04-16,5.5,15.85,All clean,Excellent
+1,31,2025-11-25,2025-12-15,3.4,14.07,Fridge slightly warm,OK
+1,29,2025-03-03,2025-03-23,4.6,21.31,Fridge slightly warm,
+3,43,2025-01-25,2025-02-15,4.7,17.18,Good,OK
+3,19,2025-06-28,2025-07-17,5.2,14.06,Perfect condition,Deep clean needed
+11,34,2026-02-13,2026-03-08,5.5,16.96,All clean,Excellent
+14,49,2025-01-25,2025-02-13,4.7,24.96,Good,
+11,19,2025-12-20,2026-01-05,4.9,7.31,Fridge slightly warm,Watch fridge temp
+6,40,2026-01-06,2026-02-04,4.7,24.87,Perfect condition,Deep clean needed
+13,44,2025-11-24,2025-12-10,3.3,12.15,Perfect condition,Excellent
+11,46,2026-01-27,2026-02-07,4.6,15.93,Fridge slightly warm,Excellent
+5,37,2025-10-25,2025-11-13,3.3,18.4,Good,Deep clean needed
+11,18,2025-05-25,2025-06-10,3.5,19.94,Needs improvement,Deep clean needed
+14,7,2025-07-31,2025-08-30,3.4,15.06,Good,Excellent
+4,43,2025-12-07,2025-12-19,4.9,21.98,All clean,Deep clean needed
+10,43,2025-10-16,2025-10-29,3.1,23.08,Good,
+6,28,2025-06-25,2025-07-17,5.4,20.11,All clean,Deep clean needed
+7,11,2025-06-02,2025-06-24,3.2,13.88,Needs improvement,Deep clean needed
+13,3,2025-10-05,2025-10-18,5.0,18.37,Good,
+6,10,2025-10-27,2025-11-22,5.5,13.16,Fridge slightly warm,Excellent
+4,9,2026-02-09,2026-03-01,4.9,13.2,All clean,Deep clean needed
+4,15,2025-01-05,2025-01-26,4.5,14.89,Good,
+6,5,2025-05-23,2025-06-02,3.9,24.43,Needs improvement,Deep clean needed
+14,36,2025-07-10,2025-07-26,5.1,16.78,Good,Excellent
+4,9,2026-02-21,2026-03-04,5.3,8.4,Good,Watch fridge temp
+7,32,2026-01-13,2026-01-30,4.2,21.13,Fridge slightly warm,Excellent
+7,23,2025-02-14,2025-03-06,4.8,23.09,Needs improvement,Excellent
+8,11,2025-07-31,2025-08-27,5.1,24.44,Fridge slightly warm,Excellent
+4,18,2026-02-27,2026-03-11,3.6,5.95,Needs improvement,Deep clean needed
+11,4,2025-10-13,2025-11-10,3.7,5.35,All clean,Deep clean needed
+11,17,2025-07-28,2025-08-09,4.2,15.88,Passed inspection,
+12,4,2025-06-29,2025-07-18,4.4,8.34,Passed inspection,Watch fridge temp
+2,32,2026-02-18,2026-03-11,5.5,21.71,Perfect condition,Excellent
+13,1,2025-03-15,2025-03-25,5.4,20.86,Needs improvement,Excellent
+1,50,2025-12-09,2025-12-21,4.4,11.91,Good,Watch fridge temp
+6,17,2025-04-03,2025-04-30,5.6,12.1,All clean,Excellent
+7,16,2026-01-14,2026-02-08,4.1,15.08,All clean,Deep clean needed
+10,37,2025-08-18,2025-09-05,5.7,9.57,Perfect condition,Excellent
+11,36,2025-04-03,2025-04-18,5.1,12.12,Needs improvement,
+4,2,2025-04-30,2025-05-29,5.3,13.59,Good,Deep clean needed
+2,43,2025-09-25,2025-10-19,3.8,6.62,Needs improvement,Watch fridge temp
+11,39,2026-01-19,2026-02-12,3.1,23.04,Good,Watch fridge temp
+9,11,2025-09-02,2025-09-15,5.4,22.0,All clean,Excellent
+10,5,2026-02-11,2026-03-03,4.7,7.27,Passed inspection,
+9,17,2025-09-06,2025-09-20,4.9,14.82,Perfect condition,Deep clean needed
+10,29,2025-08-23,2025-09-04,3.2,10.46,Fridge slightly warm,Excellent
+1,7,2026-02-12,2026-03-11,5.2,24.3,All clean,Excellent
+10,42,2025-04-21,2025-05-02,3.4,6.79,Fridge slightly warm,Excellent
+1,38,2025-09-29,2025-10-14,4.1,7.12,Perfect condition,OK
+3,1,2025-05-27,2025-06-22,4.3,18.82,All clean,Watch fridge temp
+4,9,2025-12-23,2026-01-12,3.7,6.11,Perfect condition,Watch fridge temp
+11,31,2025-07-01,2025-07-27,4.3,19.52,Needs improvement,Excellent
+1,14,2025-05-08,2025-05-17,3.2,22.02,Needs improvement,Excellent
+11,9,2025-09-26,2025-10-25,4.7,13.13,Needs improvement,Excellent
+6,9,2025-04-12,2025-05-08,3.6,21.31,Passed inspection,
+7,40,2025-07-24,2025-08-18,5.8,24.06,Fridge slightly warm,Watch fridge temp
+10,4,2025-12-13,2026-01-02,5.6,15.86,Needs improvement,
+13,22,2025-05-05,2025-05-28,4.6,10.49,Perfect condition,Watch fridge temp
+6,21,2025-10-14,2025-10-25,3.1,21.03,Fridge slightly warm,Watch fridge temp
+7,31,2026-02-14,2026-03-10,5.0,13.14,Perfect condition,Watch fridge temp
+14,10,2026-01-26,2026-02-09,3.8,21.54,Good,Deep clean needed
+10,11,2025-07-20,2025-08-13,5.1,21.02,All clean,Watch fridge temp
+6,2,2025-09-13,2025-09-21,3.2,8.2,Fridge slightly warm,
+11,44,2025-05-12,2025-05-23,3.3,4.18,Perfect condition,Deep clean needed
+13,17,2025-05-29,2025-06-08,4.0,7.18,Passed inspection,Deep clean needed
+8,21,2025-04-05,2025-04-16,5.5,4.62,Perfect condition,
+13,48,2025-01-13,2025-02-06,5.7,14.84,Good,Deep clean needed
+3,50,2025-10-09,2025-11-08,5.0,8.41,Perfect condition,Excellent
+4,15,2025-07-22,2025-08-19,4.7,23.84,Perfect condition,Deep clean needed
+12,40,2025-06-23,2025-07-14,3.3,12.46,Perfect condition,Watch fridge temp
+6,28,2025-12-31,2026-01-14,3.2,6.81,Perfect condition,
+14,3,2025-09-25,2025-10-10,5.7,17.89,Perfect condition,Watch fridge temp
+8,25,2025-04-29,2025-05-29,4.9,23.29,Needs improvement,Excellent
+11,10,2025-08-03,2025-08-28,4.4,19.04,Good,
+6,5,2025-01-24,2025-02-01,3.1,24.81,Needs improvement,
+8,2,2025-12-14,2026-01-09,4.7,10.98,Perfect condition,Watch fridge temp
+4,23,2025-09-08,2025-09-23,3.8,8.12,Needs improvement,Deep clean needed
+10,48,2025-11-07,2025-11-17,4.7,22.85,Good,Watch fridge temp
+10,37,2026-02-22,2026-03-06,4.3,19.31,Passed inspection,Excellent
+7,42,2025-03-11,2025-03-27,3.3,22.4,All clean,Excellent
+5,44,2025-12-12,2025-12-23,4.7,7.14,All clean,Excellent
+5,4,2025-05-07,2025-05-30,5.3,17.23,Good,
+5,50,2025-05-28,2025-06-16,3.8,14.8,Perfect condition,Deep clean needed
+4,41,2025-10-30,2025-11-26,4.2,8.64,All clean,OK
+2,29,2025-09-07,2025-09-22,5.5,17.96,Good,Deep clean needed
+6,11,2025-06-26,2025-07-20,4.9,8.07,Fridge slightly warm,OK
+8,12,2026-02-25,2026-03-26,4.2,16.61,Needs improvement,Watch fridge temp
+13,1,2026-01-09,2026-01-21,5.9,4.76,Perfect condition,OK
+14,25,2025-07-28,2025-08-17,5.0,14.09,Needs improvement,Deep clean needed
+10,2,2025-05-09,2025-05-16,3.6,11.92,Fridge slightly warm,Excellent
+7,10,2025-04-25,2025-05-05,4.7,23.85,Fridge slightly warm,
+14,49,2025-07-25,2025-08-01,3.9,16.64,Good,OK
+10,20,2025-01-02,2025-02-01,3.5,15.17,All clean,Watch fridge temp
+1,23,2025-09-15,2025-09-24,4.1,9.56,Perfect condition,OK
+7,13,2025-01-22,2025-02-15,4.7,6.81,Good,Watch fridge temp
+3,8,2025-01-23,2025-01-31,5.7,9.74,All clean,
+4,19,2025-07-02,2025-07-17,4.4,21.61,Perfect condition,OK
+8,23,2025-07-26,2025-08-09,3.3,7.17,Needs improvement,Excellent
+2,47,2026-02-13,2026-02-20,4.4,9.23,Needs improvement,Watch fridge temp
+9,25,2025-02-09,2025-03-09,4.3,4.57,All clean,Watch fridge temp
+8,20,2025-11-17,2025-12-02,3.7,18.17,All clean,Deep clean needed
+6,1,2025-12-04,2025-12-17,4.2,5.44,Needs improvement,
+2,29,2025-09-21,2025-09-30,3.1,6.72,Good,Deep clean needed
+8,6,2025-01-20,2025-02-09,3.3,24.38,Good,
+12,23,2026-02-17,2026-03-17,3.9,23.16,All clean,OK
+8,21,2025-08-16,2025-09-11,4.5,24.36,Perfect condition,OK
+10,37,2026-02-09,2026-02-27,4.9,24.84,Needs improvement,Watch fridge temp
+8,5,2025-11-15,2025-12-04,3.0,21.48,Needs improvement,OK
+11,41,2025-01-09,2025-01-23,5.6,15.41,Fridge slightly warm,Excellent
+12,26,2025-05-27,2025-06-16,5.0,16.14,All clean,Watch fridge temp
+1,11,2025-10-19,2025-10-27,5.2,6.32,Needs improvement,Deep clean needed
+10,38,2025-12-21,2025-12-28,3.4,23.52,Passed inspection,Deep clean needed
+8,18,2025-09-02,2025-10-02,5.7,13.31,Good,OK
+9,3,2025-12-07,2025-12-27,4.2,22.14,Passed inspection,Excellent
+2,21,2025-05-28,2025-06-15,4.4,16.67,Fridge slightly warm,Watch fridge temp
+11,26,2026-02-10,2026-03-09,5.4,17.84,Fridge slightly warm,
+6,48,2025-01-13,2025-02-03,5.6,15.29,Needs improvement,Watch fridge temp
+10,46,2025-11-11,2025-11-22,4.0,19.73,Good,OK
+6,48,2026-01-31,2026-02-13,4.3,17.12,All clean,Excellent
+11,10,2025-05-12,2025-06-04,3.0,5.34,Needs improvement,OK
+3,2,2025-07-26,2025-08-23,5.0,10.11,Perfect condition,Watch fridge temp
+2,11,2025-11-10,2025-11-26,4.5,6.02,Needs improvement,Watch fridge temp
+5,8,2026-01-05,2026-01-12,5.0,20.73,All clean,Deep clean needed
+1,8,2025-11-20,2025-12-10,5.1,15.08,Passed inspection,Deep clean needed
+3,49,2025-06-25,2025-07-21,3.1,13.72,All clean,Watch fridge temp
+3,27,2025-08-29,2025-09-18,3.2,12.93,All clean,Deep clean needed
+12,17,2026-01-12,2026-02-01,4.3,24.52,Perfect condition,
+13,35,2025-04-12,2025-04-28,5.8,11.49,Needs improvement,
+13,30,2025-02-17,2025-03-10,4.3,4.43,Needs improvement,
+5,17,2025-04-15,2025-04-24,3.7,13.95,Fridge slightly warm,Deep clean needed
+11,5,2026-01-24,2026-02-06,5.6,8.96,All clean,OK
+8,34,2026-01-02,2026-01-28,3.2,6.19,Fridge slightly warm,Deep clean needed
+13,43,2025-12-21,2026-01-02,3.6,14.97,Perfect condition,OK
+7,17,2026-01-13,2026-01-22,4.9,24.58,Perfect condition,Deep clean needed
+4,15,2025-02-18,2025-02-26,5.0,15.19,Passed inspection,
+4,37,2025-12-17,2026-01-14,3.0,8.56,All clean,Watch fridge temp
+3,12,2025-06-12,2025-06-27,4.5,22.98,All clean,OK
+2,18,2025-07-24,2025-08-06,3.4,19.02,Passed inspection,
+1,46,2025-01-09,2025-02-08,4.8,8.32,Good,Excellent
+6,16,2025-01-27,2025-02-18,3.3,16.14,Passed inspection,Deep clean needed
+6,23,2025-03-02,2025-03-21,5.3,9.42,Needs improvement,
+11,16,2025-12-08,2025-12-20,3.2,21.79,All clean,Excellent
+12,42,2026-01-29,2026-02-20,3.7,10.22,All clean,OK
+12,47,2025-09-27,2025-10-23,4.2,11.8,Perfect condition,Deep clean needed
+12,10,2025-10-24,2025-11-12,5.9,7.99,Fridge slightly warm,OK
+4,2,2025-02-26,2025-03-19,4.8,7.51,Perfect condition,OK
+6,6,2025-10-02,2025-10-14,5.8,7.9,All clean,Watch fridge temp
+2,13,2025-03-03,2025-03-17,4.6,23.54,Needs improvement,
+10,39,2025-04-19,2025-05-11,3.0,24.57,Perfect condition,Watch fridge temp
+1,23,2026-02-25,2026-03-27,5.4,15.6,Needs improvement,
+13,3,2025-01-22,2025-01-29,4.8,24.79,All clean,Watch fridge temp
+9,39,2026-01-17,2026-01-28,4.9,7.34,Perfect condition,OK
+11,32,2026-01-20,2026-02-08,3.7,7.83,Passed inspection,Watch fridge temp
+13,38,2025-10-09,2025-10-31,4.3,8.91,All clean,Watch fridge temp
+12,2,2025-07-27,2025-08-22,3.5,18.86,Passed inspection,Deep clean needed
+8,9,2025-02-21,2025-03-23,3.1,24.53,Fridge slightly warm,Deep clean needed
+10,40,2026-02-23,2026-03-20,5.0,19.33,Fridge slightly warm,OK
+13,33,2026-01-29,2026-02-05,4.0,21.37,Needs improvement,OK
+2,9,2025-11-13,2025-11-23,5.0,11.94,All clean,
+9,15,2025-08-11,2025-08-24,4.7,17.87,Good,Watch fridge temp
+12,29,2025-01-06,2025-01-24,5.7,8.31,Needs improvement,Deep clean needed
+9,50,2026-01-13,2026-01-31,5.4,21.61,Good,OK
+13,41,2025-06-23,2025-07-13,4.8,9.65,Good,Watch fridge temp
+10,7,2025-08-29,2025-09-24,5.5,8.61,Good,Excellent
+10,42,2025-05-31,2025-06-07,3.7,19.96,Needs improvement,
+4,26,2025-03-16,2025-03-26,4.2,23.12,Needs improvement,Deep clean needed
+5,31,2025-11-02,2025-11-28,4.4,13.03,Fridge slightly warm,OK
+5,8,2025-10-04,2025-10-23,4.7,21.39,Passed inspection,Excellent
+6,35,2025-09-27,2025-10-15,4.1,22.59,Fridge slightly warm,OK
+11,35,2025-07-04,2025-07-29,3.5,10.72,Perfect condition,OK
+9,40,2025-02-17,2025-03-09,4.4,8.29,Passed inspection,
+3,16,2025-08-03,2025-08-17,3.8,24.27,Perfect condition,OK
+14,18,2025-07-09,2025-07-25,5.2,12.86,Fridge slightly warm,OK
+13,31,2025-02-27,2025-03-20,3.8,5.37,Good,
+8,34,2025-07-03,2025-07-10,4.5,24.56,Perfect condition,Excellent
+10,33,2026-01-04,2026-01-12,5.2,16.42,Perfect condition,OK
+8,37,2025-12-26,2026-01-05,5.7,21.46,All clean,
+4,24,2025-05-15,2025-06-02,3.9,9.98,All clean,Excellent
+11,27,2025-03-09,2025-03-31,5.2,21.69,Passed inspection,
+4,15,2025-10-06,2025-10-17,5.2,19.4,Fridge slightly warm,
+3,20,2025-11-14,2025-12-09,5.2,19.42,Passed inspection,OK
+14,46,2025-07-12,2025-08-10,5.9,19.71,Perfect condition,Excellent
+2,50,2025-09-17,2025-10-10,3.6,5.02,Passed inspection,OK
+12,39,2025-07-09,2025-08-07,4.2,19.59,All clean,
+10,8,2025-05-11,2025-05-26,5.9,6.34,Passed inspection,OK
+11,20,2025-01-10,2025-01-29,5.5,9.13,Needs improvement,Deep clean needed
+11,46,2025-03-22,2025-04-13,5.6,4.93,Good,
+9,28,2025-05-18,2025-06-06,4.2,22.27,Good,OK
+8,45,2025-04-29,2025-05-07,4.3,14.19,Passed inspection,Excellent
+11,16,2025-01-01,2025-01-23,3.4,15.1,All clean,OK
+1,44,2026-01-05,2026-01-12,3.1,15.7,Passed inspection,Excellent
+6,39,2025-04-02,2025-04-09,3.8,13.78,Needs improvement,Watch fridge temp
+1,24,2025-02-03,2025-02-23,5.1,19.31,All clean,Deep clean needed
+3,32,2025-03-25,2025-04-15,3.6,17.85,Fridge slightly warm,
+1,25,2025-07-29,2025-08-24,3.5,15.15,Needs improvement,Watch fridge temp
+5,3,2025-06-13,2025-07-07,4.0,6.25,All clean,OK
+6,7,2025-12-20,2026-01-02,4.5,7.4,Fridge slightly warm,OK
+2,33,2025-04-05,2025-04-20,4.9,17.02,Perfect condition,Watch fridge temp
+1,36,2025-03-30,2025-04-26,5.3,11.2,Perfect condition,Watch fridge temp
+4,18,2025-07-22,2025-08-13,4.7,21.68,Passed inspection,
+13,33,2025-02-24,2025-03-13,3.2,10.49,Good,
+9,27,2026-02-01,2026-02-14,4.9,16.77,Perfect condition,
+6,15,2025-09-05,2025-10-01,3.5,13.51,All clean,Deep clean needed
+1,1,2026-02-21,2026-03-09,5.0,6.43,Needs improvement,OK
+9,25,2025-01-20,2025-02-12,4.7,5.68,Good,Excellent
+2,40,2025-02-18,2025-03-06,4.1,12.26,Perfect condition,
+14,19,2025-07-09,2025-07-26,5.4,24.6,Fridge slightly warm,Deep clean needed
+12,2,2025-03-20,2025-04-17,4.5,13.0,Perfect condition,OK
+5,5,2025-06-18,2025-07-18,5.1,12.92,Good,
+2,42,2025-04-08,2025-05-08,5.7,5.93,Passed inspection,Deep clean needed
+12,46,2025-03-11,2025-04-05,5.6,14.0,Passed inspection,Watch fridge temp
+13,32,2025-07-17,2025-07-28,4.0,24.79,Passed inspection,Deep clean needed
+4,11,2025-12-07,2025-12-17,4.1,11.59,All clean,Excellent
+9,38,2025-02-10,2025-03-09,4.8,24.35,Needs improvement,OK
+1,6,2025-11-05,2025-11-27,3.6,5.75,Perfect condition,Deep clean needed
+11,20,2025-05-21,2025-05-29,5.8,16.28,Needs improvement,Watch fridge temp
+6,20,2025-08-26,2025-09-23,3.2,7.29,Passed inspection,
+1,22,2025-06-07,2025-06-21,3.5,18.0,Good,
+8,40,2025-02-02,2025-03-04,5.6,24.66,Needs improvement,Deep clean needed
+3,7,2025-07-20,2025-07-31,5.6,14.13,Needs improvement,
+1,31,2025-09-22,2025-10-21,4.4,5.34,Fridge slightly warm,Deep clean needed
+11,32,2026-01-01,2026-01-17,5.6,12.22,Perfect condition,
+4,43,2025-02-03,2025-02-12,5.3,16.89,All clean,OK
+3,40,2025-08-10,2025-08-22,4.8,5.77,Good,Deep clean needed
+7,1,2025-11-21,2025-12-10,5.7,13.09,Needs improvement,Deep clean needed
+3,2,2025-01-10,2025-02-05,5.6,11.49,Good,Watch fridge temp
+11,41,2025-03-01,2025-03-27,3.5,5.13,Passed inspection,Excellent
+4,4,2025-03-16,2025-04-04,5.1,6.87,Passed inspection,Excellent
+3,18,2025-12-16,2025-12-24,5.2,13.91,Passed inspection,OK
+4,22,2025-03-28,2025-04-20,5.3,6.85,All clean,OK
+3,9,2026-01-02,2026-01-30,5.6,22.1,Fridge slightly warm,OK
+13,34,2025-09-19,2025-09-26,5.0,23.11,Perfect condition,Watch fridge temp
+11,30,2025-08-06,2025-08-19,4.3,20.61,Perfect condition,OK
+8,5,2025-11-04,2025-11-22,3.2,5.69,Good,OK
+4,15,2025-07-16,2025-08-11,3.2,7.27,Perfect condition,Excellent
+4,36,2025-04-23,2025-05-01,3.2,13.32,All clean,Deep clean needed
+9,13,2025-10-01,2025-10-26,5.2,5.37,Fridge slightly warm,Watch fridge temp
+10,21,2025-12-30,2026-01-16,4.5,5.86,Passed inspection,OK
+12,47,2025-09-19,2025-10-11,5.9,9.26,Needs improvement,Deep clean needed
+11,8,2026-02-23,2026-03-20,3.3,9.98,Fridge slightly warm,OK
+9,10,2025-07-05,2025-07-26,4.7,23.42,Needs improvement,OK
+5,17,2025-12-09,2026-01-08,5.4,23.82,All clean,Deep clean needed
+2,43,2025-03-07,2025-04-01,3.1,14.89,All clean,OK
+12,39,2025-03-20,2025-04-02,3.2,24.81,Fridge slightly warm,
+11,4,2025-05-19,2025-06-04,4.4,11.85,Perfect condition,Watch fridge temp
+14,25,2026-01-27,2026-02-07,3.0,20.72,Good,OK
+8,37,2025-12-10,2026-01-08,5.5,5.36,Passed inspection,
+3,37,2025-01-16,2025-02-14,5.2,14.97,Perfect condition,Excellent
+12,13,2025-06-16,2025-07-11,3.2,19.28,Fridge slightly warm,Watch fridge temp
+8,11,2025-02-16,2025-02-24,3.9,21.88,Fridge slightly warm,OK
+4,36,2026-02-17,2026-02-26,5.0,10.52,Needs improvement,Deep clean needed
+2,2,2025-08-14,2025-09-09,3.6,17.18,Fridge slightly warm,
+14,10,2025-06-15,2025-06-23,3.3,22.75,Perfect condition,
+14,19,2025-06-04,2025-06-24,4.3,15.62,Good,
+8,14,2025-01-11,2025-01-25,5.0,22.64,Needs improvement,OK
+5,2,2025-08-04,2025-08-23,5.4,10.5,All clean,Watch fridge temp
+13,37,2025-09-20,2025-10-18,5.3,18.19,All clean,Deep clean needed
+14,32,2025-11-15,2025-12-06,4.6,5.67,Passed inspection,OK
+6,3,2025-07-17,2025-07-25,5.1,7.53,Fridge slightly warm,Watch fridge temp
+5,32,2025-02-21,2025-03-23,5.5,18.22,Fridge slightly warm,Excellent
+12,21,2025-05-31,2025-06-17,3.1,13.42,Good,Deep clean needed
+13,39,2025-02-21,2025-03-02,3.8,12.54,Fridge slightly warm,Watch fridge temp
+11,7,2025-11-09,2025-11-17,3.4,17.55,Passed inspection,OK
+13,40,2026-02-13,2026-03-09,4.7,23.36,Fridge slightly warm,
+14,39,2025-07-08,2025-08-05,4.6,11.49,Fridge slightly warm,Deep clean needed
+12,29,2025-04-24,2025-05-23,5.5,10.18,Perfect condition,
+6,49,2025-10-29,2025-11-21,3.7,24.35,All clean,Excellent
+3,46,2025-04-01,2025-04-10,5.8,13.15,Fridge slightly warm,Watch fridge temp
+9,30,2025-08-23,2025-09-12,4.2,15.82,Fridge slightly warm,Deep clean needed
+6,24,2025-09-22,2025-09-30,4.9,11.66,Passed inspection,Excellent
+3,31,2025-08-06,2025-08-14,4.6,21.53,Passed inspection,Watch fridge temp
+4,10,2025-10-04,2025-10-12,3.0,5.6,Fridge slightly warm,
+12,42,2026-01-19,2026-02-17,5.6,9.05,All clean,Watch fridge temp
+8,32,2025-04-16,2025-04-27,5.1,8.15,All clean,OK
+13,16,2025-01-03,2025-01-30,3.9,19.35,Passed inspection,Watch fridge temp
+2,39,2025-03-30,2025-04-06,4.9,14.89,All clean,Excellent
+5,30,2025-10-06,2025-10-22,4.2,6.78,Needs improvement,Watch fridge temp
+9,37,2025-12-29,2026-01-10,5.1,9.14,All clean,Deep clean needed
+11,14,2025-12-15,2025-12-24,5.2,8.45,All clean,Watch fridge temp
+1,48,2025-01-20,2025-02-06,4.9,15.07,All clean,
+5,2,2025-06-06,2025-07-02,5.8,11.36,Perfect condition,OK
+6,37,2025-10-13,2025-11-07,4.9,24.99,Passed inspection,Deep clean needed
+10,10,2025-02-13,2025-02-27,4.9,22.96,Needs improvement,OK
+14,40,2025-12-11,2025-12-25,4.6,7.21,Passed inspection,Watch fridge temp
+8,9,2026-01-17,2026-02-08,3.4,24.92,Needs improvement,Watch fridge temp
+14,7,2025-03-19,2025-04-06,5.0,20.52,Good,OK
+1,36,2025-11-10,2025-11-20,4.3,7.07,Good,Deep clean needed
+4,21,2025-02-11,2025-02-25,4.1,8.93,Perfect condition,
+7,43,2025-11-15,2025-11-24,4.1,7.58,All clean,
+11,11,2025-10-21,2025-11-20,3.9,21.11,Needs improvement,OK
+14,28,2025-03-26,2025-04-14,4.3,4.13,Fridge slightly warm,OK
+11,23,2025-07-13,2025-07-22,5.0,22.94,Perfect condition,OK
+9,12,2025-03-23,2025-04-06,4.9,19.88,Perfect condition,Watch fridge temp
+6,1,2026-01-26,2026-02-04,5.1,6.39,Passed inspection,Watch fridge temp
+14,23,2025-07-08,2025-07-22,5.0,20.77,Needs improvement,Excellent
+6,48,2025-05-18,2025-06-06,5.2,7.47,Good,
+3,23,2025-10-06,2025-11-02,3.9,22.27,Passed inspection,Excellent
+7,21,2025-09-02,2025-09-27,4.2,22.49,Good,Deep clean needed
+5,29,2025-04-08,2025-05-07,4.9,11.72,Needs improvement,OK
+2,14,2025-12-24,2026-01-19,4.6,6.64,Fridge slightly warm,Excellent
+2,3,2025-06-06,2025-06-17,4.8,19.08,All clean,
+11,31,2025-01-20,2025-02-14,3.0,19.52,Good,Excellent
+7,42,2025-09-15,2025-09-29,3.4,23.04,Perfect condition,OK
+11,49,2025-05-05,2025-05-21,4.0,21.93,Perfect condition,Watch fridge temp
+11,40,2025-05-30,2025-06-27,4.4,8.25,All clean,Deep clean needed
+11,27,2026-02-15,2026-03-11,5.7,17.33,Perfect condition,OK
+7,47,2025-08-11,2025-08-25,5.3,21.72,Good,Excellent
+3,21,2025-04-03,2025-04-28,4.6,8.6,Fridge slightly warm,
+14,27,2026-02-24,2026-03-05,3.9,18.34,Perfect condition,Excellent
+5,29,2025-04-22,2025-05-16,5.5,6.87,Needs improvement,
+1,5,2025-08-21,2025-09-16,5.7,13.28,Good,Deep clean needed
+12,10,2026-01-11,2026-01-21,5.4,10.77,Good,Watch fridge temp
+1,9,2025-08-25,2025-09-10,5.3,17.95,Passed inspection,OK
+7,50,2025-02-26,2025-03-26,3.5,20.38,Needs improvement,
+1,21,2025-10-17,2025-11-05,5.2,17.18,Passed inspection,OK
+2,16,2025-02-12,2025-02-22,3.6,19.17,Fridge slightly warm,
+7,24,2025-08-16,2025-09-10,3.0,8.62,Fridge slightly warm,Deep clean needed
+13,9,2025-02-02,2025-02-13,5.7,7.87,Passed inspection,Excellent
+9,16,2026-01-04,2026-01-31,3.2,14.74,All clean,Excellent
+3,12,2025-05-20,2025-05-27,5.4,18.85,Good,Watch fridge temp
+1,11,2026-02-24,2026-03-14,3.4,23.59,All clean,OK
+7,23,2025-07-02,2025-07-27,5.4,15.11,Perfect condition,
+7,24,2025-05-26,2025-06-10,3.0,13.77,Needs improvement,OK
+1,14,2025-06-09,2025-07-08,4.4,4.66,Passed inspection,Watch fridge temp
+5,37,2025-07-04,2025-07-19,3.1,13.5,Good,Excellent
+13,39,2025-05-29,2025-06-13,5.8,5.82,All clean,OK
+10,3,2025-11-23,2025-12-11,3.5,14.85,Good,OK
+2,28,2025-05-26,2025-06-02,4.5,12.99,All clean,Deep clean needed
+14,22,2025-09-14,2025-09-21,3.2,18.95,All clean,
+8,9,2025-02-15,2025-03-08,5.7,13.32,Passed inspection,
+13,22,2025-09-08,2025-09-30,4.5,9.04,Passed inspection,
+10,6,2025-10-17,2025-11-10,5.6,16.68,Fridge slightly warm,
+8,10,2025-06-27,2025-07-14,3.8,19.18,Fridge slightly warm,Excellent
+9,16,2025-05-29,2025-06-06,5.8,13.71,All clean,Excellent
+9,47,2026-01-30,2026-03-01,5.0,12.77,Needs improvement,OK
+7,49,2025-06-18,2025-07-10,5.5,6.91,All clean,
+9,31,2025-10-09,2025-11-07,3.9,23.18,Good,Watch fridge temp
+2,46,2026-01-07,2026-01-22,4.1,18.93,Good,Deep clean needed
+5,17,2025-12-03,2025-12-24,3.7,12.33,All clean,
+11,36,2025-07-26,2025-08-22,5.0,11.35,Fridge slightly warm,Deep clean needed
+12,4,2025-10-18,2025-11-09,3.1,21.5,Fridge slightly warm,Deep clean needed
+14,44,2025-10-12,2025-10-27,5.9,18.9,Needs improvement,Excellent
+12,4,2026-01-28,2026-02-19,5.6,11.11,Needs improvement,
+11,5,2025-08-25,2025-09-24,3.4,17.04,All clean,Excellent
+3,39,2025-06-01,2025-06-30,3.9,6.22,Needs improvement,Watch fridge temp
+14,14,2025-08-07,2025-08-30,4.7,7.33,Fridge slightly warm,OK
+14,6,2026-01-11,2026-01-19,3.7,22.76,Good,OK
+9,14,2026-01-23,2026-02-22,5.8,11.48,Fridge slightly warm,Excellent
+4,42,2026-02-25,2026-03-13,5.3,20.85,Perfect condition,OK
+1,15,2025-01-06,2025-01-18,3.0,6.32,Needs improvement,Deep clean needed
+5,8,2025-10-03,2025-10-23,4.8,24.9,Perfect condition,Deep clean needed
+5,35,2025-02-13,2025-03-01,3.3,11.7,All clean,Excellent
+2,27,2025-06-22,2025-07-02,3.1,4.94,Fridge slightly warm,OK
+13,29,2025-08-29,2025-09-21,5.2,23.9,Good,OK
+14,35,2025-10-11,2025-11-06,3.6,6.45,Needs improvement,OK
+9,1,2025-11-16,2025-11-28,3.4,6.9,Good,Deep clean needed
+10,28,2025-07-06,2025-07-25,5.7,19.45,Needs improvement,
+6,40,2026-02-13,2026-03-10,4.4,16.99,Perfect condition,Excellent
+14,24,2025-09-02,2025-09-23,4.2,10.51,All clean,
+11,16,2025-02-01,2025-02-25,3.8,23.5,Passed inspection,
+9,18,2025-07-22,2025-08-18,3.3,8.59,Needs improvement,Excellent
+13,49,2025-09-22,2025-10-15,5.7,13.03,Perfect condition,
+5,34,2025-08-11,2025-09-08,3.2,22.89,Passed inspection,Deep clean needed
+11,35,2026-02-01,2026-02-16,4.5,21.54,All clean,Deep clean needed
+9,21,2025-02-03,2025-02-22,5.4,24.8,Passed inspection,Deep clean needed
+11,2,2025-09-29,2025-10-19,5.3,6.7,Needs improvement,Watch fridge temp
+6,37,2025-05-21,2025-06-14,3.8,10.65,Passed inspection,Deep clean needed
+5,34,2025-07-25,2025-08-08,4.8,6.66,All clean,Excellent
+3,21,2025-12-09,2026-01-03,4.8,10.95,All clean,OK
+5,45,2025-05-29,2025-06-27,5.7,19.02,Fridge slightly warm,Watch fridge temp
+7,5,2026-02-09,2026-02-25,5.0,18.17,Passed inspection,Deep clean needed
+2,9,2025-08-04,2025-08-29,4.9,5.4,Fridge slightly warm,Excellent
+13,6,2025-10-07,2025-11-01,3.6,10.9,Fridge slightly warm,Excellent
+3,13,2025-11-18,2025-12-03,5.6,6.33,Needs improvement,Excellent
+4,34,2025-06-22,2025-07-10,3.6,6.41,Passed inspection,Excellent
+7,45,2026-02-10,2026-02-24,3.5,19.81,Needs improvement,OK
+12,17,2026-02-20,2026-03-03,3.0,13.02,Fridge slightly warm,Deep clean needed
+14,42,2025-03-08,2025-04-06,3.1,15.69,Good,Excellent
+5,8,2025-03-30,2025-04-12,3.1,19.31,All clean,OK
+11,21,2026-02-11,2026-02-21,5.3,7.67,All clean,Excellent
+11,48,2025-08-25,2025-09-16,5.1,24.34,Passed inspection,Excellent
+6,10,2025-07-29,2025-08-05,4.7,24.69,Fridge slightly warm,Watch fridge temp
+4,49,2025-10-30,2025-11-08,4.7,10.71,Fridge slightly warm,Watch fridge temp
+3,18,2025-05-22,2025-06-03,4.6,16.31,Perfect condition,Excellent
+10,15,2025-05-27,2025-06-24,3.2,14.76,Good,
+2,5,2025-02-17,2025-03-10,3.1,21.23,Needs improvement,Excellent
+9,6,2025-12-11,2025-12-19,4.6,20.35,Needs improvement,Excellent
+1,31,2025-12-25,2026-01-02,3.7,7.79,Perfect condition,Watch fridge temp
+12,36,2025-10-09,2025-11-03,3.4,21.16,Fridge slightly warm,OK
+1,29,2025-05-14,2025-06-03,5.7,5.03,Needs improvement,Deep clean needed
+10,16,2025-05-28,2025-06-20,5.8,18.34,Needs improvement,Excellent
+14,43,2025-09-05,2025-10-02,5.1,23.57,All clean,Excellent
+4,7,2025-12-03,2025-12-31,5.9,17.98,Passed inspection,Deep clean needed
+5,14,2025-03-01,2025-03-30,5.7,24.88,Good,
+13,26,2025-04-04,2025-04-22,5.6,4.58,All clean,OK
+1,36,2025-12-02,2025-12-10,3.3,23.37,Fridge slightly warm,Watch fridge temp
+4,3,2025-09-05,2025-10-01,3.3,17.58,Passed inspection,OK
+6,18,2025-02-12,2025-02-23,4.5,11.08,Good,Excellent
+11,12,2025-11-28,2025-12-10,5.5,15.61,Fridge slightly warm,Watch fridge temp
+10,38,2025-04-08,2025-04-25,4.5,16.84,Fridge slightly warm,Excellent
+12,14,2026-02-23,2026-03-25,4.4,23.94,All clean,OK
+1,39,2025-05-13,2025-06-07,3.9,24.16,Fridge slightly warm,
+3,11,2025-08-26,2025-09-02,3.3,5.56,Passed inspection,Watch fridge temp
+10,27,2025-12-09,2026-01-02,3.7,19.23,Needs improvement,Excellent
+2,21,2026-01-14,2026-02-13,3.3,7.25,Good,Deep clean needed
+8,23,2026-02-20,2026-03-04,5.6,22.02,Perfect condition,Deep clean needed
+12,31,2025-11-25,2025-12-14,5.6,7.93,Fridge slightly warm,Excellent
+8,11,2025-11-16,2025-12-13,5.9,21.26,Perfect condition,OK
+9,10,2025-05-28,2025-06-26,4.1,13.97,All clean,Excellent
+4,50,2026-02-07,2026-02-18,4.5,18.29,Good,Deep clean needed
+5,4,2025-09-05,2025-10-04,4.1,18.92,Good,Deep clean needed
+14,22,2026-01-07,2026-01-29,3.8,10.29,Perfect condition,OK
+3,2,2025-11-18,2025-12-04,4.0,5.36,All clean,
+1,8,2025-05-27,2025-06-19,3.4,13.12,Fridge slightly warm,Watch fridge temp
+1,16,2025-04-08,2025-04-24,5.2,7.44,Needs improvement,Deep clean needed
+1,49,2025-01-05,2025-02-02,3.9,5.53,Fridge slightly warm,OK
+10,46,2025-04-10,2025-05-06,3.6,18.7,Good,Excellent
+6,31,2026-01-07,2026-01-16,4.8,17.6,All clean,Excellent
+13,30,2025-01-11,2025-02-09,5.4,5.72,Perfect condition,Deep clean needed
+14,19,2025-07-08,2025-07-20,4.2,20.55,All clean,Deep clean needed
+11,49,2025-11-02,2025-11-16,4.6,15.67,All clean,
+4,48,2025-02-23,2025-03-10,5.4,11.59,Fridge slightly warm,Excellent
+2,18,2025-04-25,2025-05-08,3.1,10.31,Fridge slightly warm,
+11,18,2025-04-29,2025-05-28,5.3,4.75,Good,OK
+9,14,2025-12-26,2026-01-10,5.5,9.88,Fridge slightly warm,Watch fridge temp
+13,32,2025-04-04,2025-04-27,4.4,8.29,Good,Watch fridge temp
+12,32,2025-05-02,2025-05-16,4.6,20.85,All clean,Watch fridge temp
+1,23,2025-07-21,2025-08-17,5.2,11.39,All clean,Deep clean needed
+9,37,2025-08-16,2025-09-06,3.1,6.54,Perfect condition,Watch fridge temp
+7,23,2025-04-10,2025-04-27,5.8,14.58,Good,Excellent
+5,28,2025-04-02,2025-04-11,4.8,15.7,Needs improvement,OK
+12,44,2025-05-07,2025-05-31,4.5,11.62,Perfect condition,Deep clean needed
+2,35,2026-01-05,2026-01-27,4.9,5.57,Passed inspection,
+4,50,2025-01-04,2025-01-25,5.2,13.5,Perfect condition,Watch fridge temp
+7,28,2025-11-25,2025-12-25,5.1,8.54,Perfect condition,OK
+5,42,2025-07-14,2025-07-27,3.9,9.23,Perfect condition,Watch fridge temp
+14,38,2025-06-17,2025-06-27,3.5,19.16,Perfect condition,Watch fridge temp
+13,49,2025-02-09,2025-03-03,5.2,19.8,Good,Watch fridge temp
+5,36,2025-07-27,2025-08-25,3.3,5.97,Good,Excellent
+3,41,2026-01-09,2026-02-05,4.0,9.61,Fridge slightly warm,OK
+11,36,2026-01-08,2026-01-24,4.1,7.92,Needs improvement,Excellent
+5,50,2025-05-29,2025-06-09,5.8,14.93,All clean,Deep clean needed
+11,17,2025-03-29,2025-04-12,3.9,12.9,Passed inspection,Deep clean needed
+8,18,2025-12-18,2026-01-12,4.8,4.93,Good,Watch fridge temp
+9,21,2025-06-14,2025-06-29,4.0,12.16,All clean,Watch fridge temp
+3,24,2025-09-29,2025-10-11,3.5,18.74,Perfect condition,Watch fridge temp
+6,46,2025-03-02,2025-03-09,3.9,15.0,Perfect condition,OK
+7,1,2026-01-21,2026-02-18,4.2,10.76,All clean,Deep clean needed
+5,41,2025-12-27,2026-01-13,5.0,20.63,Good,Deep clean needed
+10,40,2025-11-27,2025-12-26,4.4,7.7,Good,Excellent
+14,3,2025-01-01,2025-01-15,5.8,20.56,Perfect condition,Watch fridge temp
+10,24,2025-04-12,2025-05-10,3.4,23.12,Needs improvement,Watch fridge temp
+11,27,2026-02-17,2026-03-12,4.2,6.66,Good,Deep clean needed
+7,45,2025-06-04,2025-06-18,5.8,6.65,Passed inspection,
+6,44,2025-09-19,2025-10-18,4.7,20.31,Perfect condition,Deep clean needed
+12,25,2025-12-19,2025-12-27,5.6,24.14,Fridge slightly warm,Excellent
+10,9,2025-07-02,2025-07-27,5.0,15.37,Fridge slightly warm,Watch fridge temp
+3,16,2025-03-01,2025-03-17,3.9,17.55,Passed inspection,
+3,19,2025-12-29,2026-01-21,4.1,15.11,Needs improvement,Excellent
+10,45,2025-10-19,2025-10-29,5.9,19.08,All clean,
+10,7,2025-12-12,2026-01-05,5.0,6.86,Good,Excellent
+7,43,2026-02-18,2026-03-05,5.4,6.26,Perfect condition,
+8,48,2025-09-10,2025-10-01,4.5,12.53,Passed inspection,
+2,7,2025-12-05,2025-12-19,3.6,21.98,Perfect condition,Watch fridge temp
+7,29,2026-02-03,2026-02-14,4.7,23.3,Perfect condition,Watch fridge temp
+2,36,2025-04-13,2025-04-22,5.2,4.51,All clean,Deep clean needed
+14,11,2025-05-21,2025-06-18,5.4,8.15,Passed inspection,OK
+1,9,2025-10-07,2025-10-16,5.2,22.3,Needs improvement,Watch fridge temp
+10,28,2025-11-29,2025-12-20,5.7,19.21,Passed inspection,Deep clean needed
+8,46,2026-02-20,2026-03-19,4.5,20.37,All clean,Watch fridge temp
+13,40,2025-04-17,2025-05-09,5.4,9.86,Fridge slightly warm,OK
+2,7,2025-11-11,2025-12-07,4.1,5.95,Good,Watch fridge temp
+10,39,2025-05-14,2025-05-24,4.3,22.75,Perfect condition,OK
+4,45,2025-07-20,2025-07-27,5.8,14.6,Good,Excellent
+2,48,2025-01-02,2025-01-23,4.3,21.04,Good,OK
+14,37,2025-04-02,2025-04-18,4.9,6.26,Passed inspection,Excellent
+6,33,2025-01-10,2025-01-21,4.1,11.16,Perfect condition,OK
+4,9,2025-06-18,2025-07-16,3.5,14.59,Fridge slightly warm,
+11,47,2026-02-17,2026-03-17,3.4,23.34,All clean,Deep clean needed
+10,50,2026-01-23,2026-02-05,4.4,23.16,All clean,Watch fridge temp
+11,32,2025-03-24,2025-04-10,4.8,24.76,Good,
+9,46,2025-01-10,2025-01-26,4.7,17.78,Good,Deep clean needed
+4,7,2025-06-20,2025-07-09,3.8,12.28,All clean,OK
+14,7,2025-10-06,2025-10-29,4.0,9.85,Perfect condition,
+6,43,2025-06-12,2025-06-19,4.5,13.88,Perfect condition,Watch fridge temp
+5,11,2026-01-30,2026-02-20,4.4,18.3,Good,OK
+9,6,2025-05-13,2025-06-03,5.4,14.87,Fridge slightly warm,Deep clean needed
+1,1,2025-08-21,2025-09-02,4.4,10.66,Good,Watch fridge temp
+4,30,2025-07-17,2025-07-29,3.3,22.07,All clean,OK
+2,38,2025-12-01,2025-12-08,3.2,10.21,Fridge slightly warm,Deep clean needed
+9,39,2025-10-03,2025-10-25,5.0,12.16,Fridge slightly warm,Excellent
+6,47,2025-01-16,2025-02-07,3.0,11.7,Fridge slightly warm,Deep clean needed
+9,10,2025-04-26,2025-05-24,4.9,12.98,Good,Excellent
+2,17,2026-02-07,2026-02-20,5.7,13.05,Fridge slightly warm,
+3,17,2025-07-19,2025-08-10,3.4,22.74,Passed inspection,Watch fridge temp
+9,14,2026-02-25,2026-03-12,5.0,13.5,Passed inspection,Excellent

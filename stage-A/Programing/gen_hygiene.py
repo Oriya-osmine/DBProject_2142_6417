@@ -8,8 +8,8 @@ from datetime import datetime, timedelta
 def generate_hygiene_data(num_records=510):
     """Generate hygiene inspection data with CSV and SQL formats."""
     
-    output_csv = "hygiene_inspection.csv"
-    output_sql = "hygiene_inspection_data.sql"
+    output_csv = "../DATA/hygiene_inspection.csv"
+    output_sql = "../DATA/hygiene_inspection_data.sql"
     
     statuses = ['Perfect condition', 'All clean', 'Passed inspection', 
                 'Needs improvement', 'Fridge slightly warm', 'Good']

@@ -1,20 +1,10 @@
-/*
- * Insert Tables SQL Script
- * ========================
- * This script demonstrates three different data insertion methods:
- * 1. CSV Import using COPY command
- * 2. Mockaroo-generated INSERT statements
- * 3. Python-generated INSERT statements
- */
-
 -- =====================================================
--- METHOD 1: CSV IMPORT (From DataImportFiles folder)
+-- METHOD 1: CSV IMPORT (From DATA folder)
 -- =====================================================
 -- Inserts data from CSV files using PostgreSQL COPY command
--- These files are mounted at /data/import/ in the Docker container
 
 COPY kitchen_station(station_name, description, is_active)
-FROM '/data/import/kitchen_station.csv' DELIMITER ',' CSV HEADER;
+FROM '/data/output/kitchen_station.csv' DELIMITER ',' CSV HEADER;
 
 -- =====================================================
 -- METHOD 2: MOCKAROO-GENERATED (From mockarooFiles folder)
@@ -25,22 +15,22 @@ FROM '/data/import/kitchen_station.csv' DELIMITER ',' CSV HEADER;
 \i /data/mockaroo/chef.sql
 
 -- =====================================================
--- METHOD 3: PYTHON-GENERATED (From Programing folder)
+-- METHOD 3: PYTHON-GENERATED (From DATA folder)
 -- =====================================================
 -- Data generated using Python scripts for large-scale data insertion
--- Located at: /data/programing/
+-- Located at: /data/output/
 
 -- Insert kitchen orders (510+ records)
-\i /data/programing/kitchen_order_data.sql
+\i /data/output/kitchen_order_data.sql
 
 -- Insert preparation tasks (20,000+ records)
-\i /data/programing/preparation_task_data.sql
+\i /data/output/preparation_task_data.sql
 
 -- Insert food prep logs (20,000+ records)
-\i /data/programing/food_prep_log_data.sql
+\i /data/output/food_prep_log_data.sql
 
 -- Insert hygiene inspections (510+ records)
-\i /data/programing/hygiene_inspection_data.sql
+\i /data/output/hygiene_inspection_data.sql
 
 -- =====================================================
 -- Data Summary

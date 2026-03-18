@@ -6,7 +6,7 @@ def generate_orders(num_records=510):
     Generate kitchen_order records.
     Creates SQL INSERT statements for the kitchen_order table.
     """
-    output_file = "kitchen_order_data.sql"
+    output_file = "../DATA/kitchen_order_data.sql"
     statuses = ['Pending', 'In-Prep', 'Ready', 'Served', 'Cancelled']
 
     def random_start_time():
