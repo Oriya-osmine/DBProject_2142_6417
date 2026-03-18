@@ -1,494 +1,128 @@
-# דוח פרויקט - מערכת ניהול המטבח
+# דוח פרויקט - מערכת ניהול המטבח (Stage A)
 
 ## 📋 שער
-
-**שמות המגישים: דביר דיעי ואוריה חנוכה
-
-**המערכת:** מערכת ניהול ותכנון עבודות במטבח
-
-**היחידה הנבחרת:** יחידת המטבח - ניהול תחנות עבודה, שפים, הזמנות, משימות הכנה, ובקרת היגיינה
+**מגישים:** דביר דיעי ואוריה חנוכה  
+**המערכת:** Kitchen Management System (KMS)  
+**תיאור:** מערכת לניהול ותכנון עבודות במטבח – ניהול תחנות עבודה, שפים, הזמנות, משימות הכנה ובקרת היגיינה.
 
 ---
 
 ## 📑 תוכן עניינים
-
-1. [מבוא](#מבוא)
-2. [תיאור המערכת](#תיאור-המערכת)
-3. [מסכי המערכת](#מסכי-המערכת)
-4. [תרשימים](#תרשימים)
-5. [החלטות עיצוב](#החלטות-עיצוב)
-6. [שיטות הכנסת נתונים](#שיטות-הכנסת-נתונים)
-7. [גיבוי ושחזור נתונים](#גיבוי-ושחזור-נתונים)
+1. [מבוא](#-מבוא)
+2. [מסכי המערכת (Mockups)](#-מסכי-המערכת)
+3. [תרשימים (ERD & DSD)](#-תרשימים)
+4. [החלטות עיצוב](#-החלטות-עיצוב)
+5. [שיטות הכנסת נתונים](#-שיטות-הכנסת-נתונים)
+6. [גיבוי ושחזור נתונים](#-גיבוי-ושחזור-נתונים)
+7. [מבנה הפרויקט](#-מבנה-הפרויקט)
 
 ---
 
 ## 🎯 מבוא
+מערכת ניהול המטבח נועדה לייעל תהליכי עבודה במטבחים תעשייתיים ומסעדות. המערכת מנהלת נתונים רחבי היקף המאפשרים מעקב מקצה לקצה.
 
-### תיאור המערכת
-
-מערכת ניהול המטבח (Kitchen Management System) היא מערכת מידע המיועדת לניהול וייעול תהליכי העבודה במטבח של מסעדה או מתקן זמנים.
-
-**הנתונים הנשמרים במערכת:**
-
-- **תחנות עבודה (Kitchen Stations)**: 15 תחנות שונות - גריל, סלט, פסטה, רמה, וכו'
-- **שפים (Chefs)**: 60 עובדים עם התמחויות שונות - גריל מסטר, שף פסטה, בריסקיט, וכו'
-- **הזמנות (Kitchen Orders)**: 510 הזמנות עם סטטוס ממעקב - Pending, In-Prep, Ready, Served
-- **משימות הכנה (Preparation Tasks)**: 20,010 משימות - כל הזמנה מפוצלת למשימות
-- **רישומי הכנה (Food Prep Logs)**: 20,010 רישומים של הכנות בפועל
-- **בדיקות היגיינה (Hygiene Inspections)**: 510 בדיקות ניקיון וטמפרטורה
-
-**הפונקציונאליות העיקרית:**
-
-1. ✅ ניהול תחנות - מעקב פעילות, זמינות, ביצועים
-2. ✅ ניהול צוות - הקצאות, שכבות, היכולת
-3. ✅ קבלה ועדכון הזמנות - זמן משלוח, סטטוס
-4. ✅ תכנון משימות - הקצאה חכמה לשפים
-5. ✅ רישום רציף - מעקב איכות וזמנים
-6. ✅ בקרת היגיינה - תקנים נקיון ובטיחות
+**הנתונים המנוהלים במערכת:**
+* **15 תחנות עבודה**: גריל, סלטים, פסטה, הכנות ועוד.
+* **60 שפים**: ניהול עובדים לפי התמחויות (Grill Master, Pastry Chef וכו').
+* **510 הזמנות**: מעקב סטטוס (Pending, In-Prep, Ready, Served).
+* **20,010 משימות הכנה**: פירוט כל הזמנה למשימות ביצוע.
+* **20,010 רישומי הכנה**: תיעוד הביצוע בפועל על ידי הצוות.
+* **510 בדיקות היגיינה**: בקרת איכות, ניקיון וטמפרטורה.
 
 ---
 
 ## 🖥️ מסכי המערכת
+להלן עיצוב תיאורטי (Mockups) של ממשק המשתמש העתידי של המערכת:
 
-### ארבעה מסכים עיקריים שעוצבו ב-Google AI Studio:
+### מסך 1: דשבורד ראשי
+צפייה בזמן אמת בהזמנות וסטטוס התחנות.  
+![Dashboard Mockup](screenshots/01-dashboard-mockup.png)
 
-#### מסך 1: דשבורד ראשי
-- צפייה בהזמנות פעילות בזמן אמת
-- סטטוסים לפי תחנה
-- קיים שפים ותחנות
+### מסך 2: ניהול תחנות
+סקירת פעילות התחנות והשפים המוקצים אליהן.  
+![Stations Mockup](screenshots/02-stations-mockup.png)
 
-#### מסך 2: ניהול הזמנות
-- create הזמנה חדשה
-- עדכון סטטוס (Pending → In-Prep → Ready)
-- ביטול הזמנה
+### מסך 3: ניהול צוות שפים
+רשימת השפים, התמחויות וסטטוס משמרת.  
+![Chefs Mockup](screenshots/03-chefs-mockup.png)
 
-#### מסך 3: י ניהול משימות
-- תצוגת משימות פעילות
-- הקצאה לשפים
-- עדכון התקדמות
-
-#### מסך 4: רישומי היגיינה
-- הוספת בדיקה חדשה
-- עדכון ניקיון וטמפרטורה
-- קבלת דוח
+### מסך 4: בקרת היגיינה
+דוח ריכוז בדיקות בטיחות מזון וניקיון.  
+![Hygiene Mockup](screenshots/04-hygiene-mockup.png)
 
 ---
 
 ## 📊 תרשימים
 
 ### ERD - Entity Relationship Diagram
-
-```
-┌─────────────────────┐
-│  KITCHEN_STATION    │
-├─────────────────────┤
-│ station_id (PK)     │◄──┐
-│ station_name        │   │
-│ description         │   │
-│ is_active           │   │
-└─────────────────────┘   │
-                          │
-┌─────────────────────┐   │
-│      CHEF           │   │
-├─────────────────────┤   │
-│ chef_id (PK)        │   │
-│ first_name          │   │
-│ last_name           │   │
-│ specialization      │   │
-│ hire_date           │   │
-│ current_station_id─────┼───► FK
-│ is_on_shift         │   │
-└─────────────────────┘   │
-       ▲                  │
-       │                  │
-       │ (FK)             │
-       │                  │
-       │                  │
-┌──────────────────────────────┐
-│   KITCHEN_ORDER             │
-├──────────────────────────────┤
-│ kitchen_order_id (PK)        │
-│ order_id                     │
-│ status                       │
-│ start_time / finish_time     │
-│ station_id (FK) ─────────────┘
-└──────────────────────────────┘
-       ▲
-       │ (FK)
-       │
-┌──────────────────────────────┐
-│   PREPARATION_TASK           │
-├──────────────────────────────┤
-│ task_id (PK)                 │
-│ kitchen_order_id (FK)        │
-│ chef_id (FK) ───────────────► FK to CHEF
-│ task_description             │
-│ status                       │
-│ priority_level (1-5)         │
-└──────────────────────────────┘
-
-┌──────────────────────────────┐
-│    FOOD_PREP_LOG             │
-├──────────────────────────────┤
-│ log_id (PK)                  │
-│ chef_id (FK) ───────────────► FK to CHEF
-│ menu_item_id                 │
-│ preparation_time             │
-│ prep_date                    │
-│ notes                        │
-└──────────────────────────────┘
-
-┌──────────────────────────────┐
-│   HYGIENE_INSPECTION         │
-├──────────────────────────────┤
-│ inspection_id (PK)           │
-│ station_id (FK) ────────────► FK to STATION
-│ inspector_id (FK) ──────────► FK to CHEF
-│ inspection_date              │
-│ cleanliness_score (1-10)     │
-│ temperature_check            │
-│ status                       │
-│ comments                     │
-└──────────────────────────────┘
-```
+מבנה הקשרים הלוגיים בין הישויות במערכת:  
+![ERD Diagram](screenshots/erd-diagram.png)
 
 ### DSD - Detailed Structure Diagram
-
-[ראה תמונה מצורפת: dsd-diagram.png]
+פירוט מבנה הטבלאות, סוגי נתונים ומפתחות:  
+![DSD Diagram](screenshots/dsd-diagram.png)
 
 ---
 
 ## 🎓 החלטות עיצוב
 
-### 1. בחירת PostgreSQL 17.1
-
-**העדפה על SQLite או MySQL:**
-- ✅ Foreign Keys אמיתיות עם CASCADE Delete
-- ✅ Transactions - יציבות בעת עדכונים בו-זמניים
-- ✅ Constraints בעלי כוח (CHECK, UNIQUE, NOT NULL)
-- ✅ טוב לנתונים מובנים ו-Relational
-
-### 2. Primary Key - Auto-Increment
-
-```sql
-station_id INT GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY
-```
-
-**נימוק:** 
-- אוטומטי, לא צריך ניהול ידני
-- כל רשומה חדשה מקבלת ID ייחודי
-
-### 3. Foreign Key Relationships
-
-| Relationship | נימוק |
-|---|---|
-| CHEF → KITCHEN_STATION | שף עובד בתחנה |
-| KITCHEN_ORDER → KITCHEN_STATION | הזמנה מוכנת בתחנה |
-| PREPARATION_TASK → KITCHEN_ORDER | משימה היא חלק מהזמנה |
-| PREPARATION_TASK → CHEF | משימה מוקצית לשף |
-| FOOD_PREP_LOG → CHEF | רישום הכנה של שף |
-| HYGIENE_INSPECTION → KITCHEN_STATION | בדיקה של תחנה |
-| HYGIENE_INSPECTION → CHEF | בדיקה בוצעה ע"י שף |
-
-### 4. ערכי Status - Enum
-
-```sql
--- Kitchen Order
-'Pending', 'In-Prep', 'Ready', 'Served', 'Cancelled'
-
--- Hygiene Inspection
-'Perfect condition', 'All clean', 'Passed inspection', 
-'Needs improvement', 'Fridge slightly warm', 'Good'
-```
-
-**נימוק:** שמור על קיוס קצתו הנתונים, מנעי שגיאות הקלדה
-
-### 5. Numeric Constraints
-
-- **cleanliness_score**: NUMERIC(4,1) - ערך 1.0-10.0
-- **temperature_check**: NUMERIC(5,2) - ערך צלזיוס עם 2 עשרוניות
+1.  **PostgreSQL 17.1**: נבחרה בשל היכולת לנהל Transactions מורכבים, תמיכה ב-Constraints חזקים וביצועים גבוהים בנתונים רלציוניים.
+2.  **מפתחות (PK)**: שימוש ב-`GENERATED BY DEFAULT AS IDENTITY` להבטחת מספור אוטומטי וייחודי.
+3.  **סטטוסים (Enum)**: הגבלת ערכי הסטטוס (כמו 'Pending', 'Ready') למניעת שגיאות הקלדה ושמירה על שלמות הנתונים.
+4.  **אילוצים מספריים**: הגבלת ציוני היגיינה לטווח 1.0-10.0 וטמפרטורות לדיוק של 2 ספרות עשרוניות.
 
 ---
 
 ## 📥 שיטות הכנסת נתונים
 
-### שיטה 1️⃣ - CSV Import (kitchen_station)
+### שיטה 1: CSV Import (kitchen_station)
+שימוש בפקודת `COPY` לייבוא נתונים סטטיים של תחנות עבודה מתוך קובץ CSV.  
+![CSV Execution](screenshots/method1-csv-execution.png)
 
-**קובץ**: `kitchen_station.csv`
+### שיטה 2: Mockaroo SQL (chef)
+ייבוא 60 שפים עם נתונים אמינים (שמות, תאריכי העסקה) באמצעות סקריפט SQL מוכן.  
+![Mockaroo Execution](screenshots/method2-mockaroo-execution.png)
 
-```csv
-station_name,description,is_active
-Grill Station,Main grilling area for burgers and steaks,true
-Salad Station,Cold prep area for salads and appetizers,true
-Pastry Station,Dessert and baking section,true
-...
-```
-
-**הרצה:**
-```sql
-COPY kitchen_station(station_name, description, is_active)
-FROM '/data/output/kitchen_station.csv' DELIMITER ',' CSV HEADER;
-```
-
-**יתרונות:**
-- ✅ קל לעדכון ידני בתוך Excel
-- ✅ תאימות עם כל מערכות חיצוניות
-- ✅ 15 רשומות - קל לניהול
-
-**תמונה:**
-```
-[Screenshot showing COPY command execution:
- Copied 15 records from CSV into kitchen_station table]
-```
-
----
-
-### שיטה 2️⃣ - Mockaroo SQL (chef)
-
-**קובץ**: `chef.sql`
-
-```sql
-insert into chef (first_name, last_name, specialization, 
-                 hire_date, current_station_id, is_on_shift) 
-values ('Clerissa', 'Fallanche', 'Butcher', '10/13/2025', 6, true);
-insert into chef (...) values (...);
-...
-```
-
-**60 שפים עם:**
-- שמות ישראליים/בינלאומיים
-- התמחויות שונות (Grill Master, Sous Chef, Pastry Chef וכו')
-- תאריכי העסקה מגוונים
-- הקצאות לתחנות
-
-**יתרונות:**
-- ✅ נתונים אמיתיים-ממש (generated בMockaroo)
-- ✅ קל להרחיב - רק הוסף עוד INSERT statements
-- ✅ שפים "אמיניים" עם שמות
-
-**תמונה:**
-```
-[Screenshot showing chef.sql being executed:
- INSERT statements with realistic data]
-```
-
----
-
-### שיטה 3️⃣ - Python-Generated SQL
-
-**סקריפטים:**
-- `gen_orders.py` → `kitchen_order_data.sql` (510 הזמנות)
-- `gen_tasks.py` → `preparation_task_data.sql` (20,010 משימות)
-- `gen_logs.py` → `food_prep_log_data.sql` (20,010 רישומי הכנה)
-- `gen_hygiene.py` → `hygiene_inspection_data.sql` (510 בדיקות)
-
-**הרצה:**
-```powershell
-python main_generator.py
-```
-
-**פלט:**
-```
-=== Starting Full Data Generation ===
-Generating 510 kitchen orders...
-Created 'kitchen_order_data.sql'
-Generating 20010 food prep logs...
-Created 'food_prep_log_data.sql'
-Generating 20010 preparation tasks...
-Created 'preparation_task_data.sql'
-Generating hygiene inspection data...
-Created 'hygiene_inspection_data.sql'
-=== All SQL files generated successfully ===
-```
-
-**יתרונות:**
-- ✅ סקלביליות - קל ליצור אלפי רשומות
-- ✅ התפלגות מגוונת - הזמנות חדשות, סטטוסים שונים, זמנים שונים
-- ✅ שחזור נתונים במהירות - כל הרצה יוצרת נתונים חדשים
-
-**תמונה:**
-```
-[Screenshot showing Python script execution output:
- Generated 4 SQL files with thousands of records]
-```
+### שיטה 3: Python-Generated SQL
+שימוש בסקריפטים של Python ליצירת מעל 40,000 רשומות של הזמנות, משימות ורישומי הכנה.  
+![Python Execution](screenshots/method3-python-execution.png)
 
 ---
 
 ## 💾 גיבוי ושחזור נתונים
 
-### גיבוי מלא של כל הנתונים
-
-**פקודה:**
-```powershell
-docker exec PostgreSQL_DB pg_dump -U myUser -d myDatabase > backup_$(Get-Date -f "yyyyMMdd_HHmmss").sql
-```
-
-**תמונה - Backup:**
-```
-[Screenshot showing:
- - pg_dump command executed
- - File: backup_20260318_180000.sql (X MB)
- - Success message]
-```
-
-**תיאור:**
-1. `pg_dump` מחלץ את כל הנתונים + הstucture
-2. נשמר לקובץ .sql עם timestamp
-3. ניתן להעביר, גיבוי, או בדוק
-
----
+### גיבוי מלא
+ביצוע Dump מלא של בסיס הנתונים כולל מבנה ונתונים לקובץ SQL חיצוני.  
+![Backup Execution](screenshots/backup-execution.png)
 
 ### שחזור מגיבוי
-
-**פקודה:**
-```powershell
-docker exec -i PostgreSQL_DB psql -U myUser -d myDatabase < backup_20260318_180000.sql
-```
-
-**תמונה - Restore:**
-```
-[Screenshot showing:
- - Restore command running
- - Creating tables...
- - Inserting data...
- - Restore complete message
- - Row counts verified]
-```
-
-**תיאור:**
-1. קובץ הגיבוי נקרא
-2. כל הטבלאות וה-Data משוחזרים
-3. הנתונים בדיוק כמו שהיו
+תהליך טעינת הנתונים מקובץ גיבוי לשרת ריק לשחזור מלא של המצב הקודם.  
+![Restore Execution](screenshots/restore-execution.png)
 
 ---
 
-### גיבוי של טבלה ספציפית
+## 📊 סטטיסטיקות דאטה
 
-**פקודה:**
-```powershell
-docker exec PostgreSQL_DB pg_dump -U myUser -d myDatabase -t kitchen_order > kitchen_orders_backup.sql
-```
-
-**תמונה:**
-```
-[Screenshot showing single table backup file]
-```
-
----
-
-## 🚀 התחלה מהירה
-
-### הפעלה ראשונה (עם initialization מלא)
-
-```powershell
-# Code generation
-cd stage-A/Programing
-python main_generator.py
-
-# Docker startup
-cd ../..
-docker-compose down -v    # Clean slate
-docker-compose up -d
-```
-
-**טיימינג:**
-- 10 שניות - Docker starts
-- 10 שניות - PostgreSQL initializes
-- 5 שניות - Tables created
-- 10 שניות - Data inserted
-- **סה"כ: ~35 שניות**
-
-### הפעלות טרי (בלי מחיקת נתונים)
-
-```powershell
-# אפשרות 1: Restart
-docker-compose restart
-
-# אפשרות 2: Down בלי volume delete
-docker-compose down
-docker-compose up -d
-```
-
----
-
-## 📊 סטטיסטיקות דטה
-
-| טבלה | מספר רשומות | גודל |
-|------|-----------|------|
+| טבלה | מספר רשומות | גודל מוערך |
+| :--- | :--- | :--- |
 | kitchen_station | 15 | ~1 KB |
 | chef | 60 | ~5 KB |
 | kitchen_order | 510 | ~50 KB |
 | preparation_task | 20,010 | 2.8 MB |
-| food_prep_log | 20,010+ | 2.6 MB |
+| food_prep_log | 20,010 | 2.6 MB |
 | hygiene_inspection | 510 | ~50 KB |
 | **סה"כ** | **51,115+** | **~5.5 MB** |
 
 ---
 
 ## 📁 מבנה הפרויקט
-
-```
-sqlMiniProject/
-│
-├── docker-compose.yml          # הגדרת Docker + volumes
-├── .env                        # סביבה (credentials)
-├── servers.json                # pgAdmin configuration
-│
-├── init-db/                    # Auto-run scripts
-│   ├── 00-drop-tables.sql
-│   ├── 01-create-tables.sql
-│   ├── 02-insert-data.sql
-│   └── 03-select-all.sql
-│
-└── stage-A/
-    ├── createTables.sql        # Manual table creator
-    ├── insertTables.sql        # Manual data inserter
-    ├── selectAll.sql           # Manual data viewer
-    ├── dropTables.sql          # Manual cleanup
-    │
-    ├── DataImportFiles/
-    │   └── kitchen_station.csv
-    │
-    ├── mockarooFiles/
-    │   └── chef.sql
-    │
-    ├── Programing/
-    │   ├── main_generator.py    # Main entry point
-    │   ├── gen_orders.py
-    │   ├── gen_logs.py
-    │   ├── gen_tasks.py
-    │   └── gen_hygiene.py
-    │
-    └── DATA/                   # Generated files
-        ├── kitchen_station.csv
-        ├── kitchen_order_data.sql
-        ├── preparation_task_data.sql
-        ├── food_prep_log_data.sql
-        ├── hygiene_inspection.csv
-        └── hygiene_inspection_data.sql
-```
+* `init-db/`: סקריפטים להקמה אוטומטית של בסיס הנתונים בעת הרצת ה-Container.
+* `stage-A/`: קבצי המקור של שלב א' (SQL, Python Generators, Data files).
+* `screenshots/`: תיעוד חזותי של המערכת, הרצות ו-Mockups.
+* `docker-compose.yml`: הגדרת תשתיות השרת, ה-Volumes והרשת.
 
 ---
-
-## ✅ סטטוס זשלב א
-
-- ✅ עיצוב טבלאות ו-ERD
-- ✅ יצירת 4 init scripts
-- ✅ הכנסת נתונים - 3 שיטות שונות
-- ✅ Docker integration + pgAdmin
-- ✅ גיבוי ושחזור פעיל
-- ✅ דוח שלם (זה!)
-- ⏳ מוכן לשלב ב (UI/Frontend)
+**סטטוס פרויקט:** ✅ שלב א' הושלם בהצלחה. המערכת מוכנה לשלבי הפיתוח הבאים.
 
 ---
-
-## 📝 הערות
-
-- ✓ התחזוקה פשוטה - רק `docker-compose restart`
-- ✓ גיבויים אוטומטיים - אחסנו למקום בטוח
-- ✓ Scalable - קל להוסיף עוד נתונים
-
----
-
 **עדכון אחרון:** 18/03/2026
-**סטטוס:** ✅ גמור לשלב א
