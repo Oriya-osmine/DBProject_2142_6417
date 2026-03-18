@@ -45,9 +45,9 @@ CREATE TABLE hygiene_inspection (
     inspector_id INT REFERENCES chef(chef_id) NOT NULL,
     inspection_date DATE DEFAULT CURRENT_DATE,
     next_inspection_date DATE,
-    cleanliness_score INT CHECK (cleanliness_score BETWEEN 1 AND 10),
-    temperature_check NUMERIC(5,2), -- Numeric with precision as requested
-    status VARCHAR(20) NOT NULL, 
+    cleanliness_score NUMERIC(4,1) CHECK (cleanliness_score BETWEEN 1.0 AND 10.0),
+    temperature_check NUMERIC(5,2), -- Celsius temperature
+    status VARCHAR(50) NOT NULL CHECK (status IN ('Perfect condition', 'All clean', 'Passed inspection', 'Needs improvement', 'Fridge slightly warm', 'Good')),
     comments TEXT
 );
 

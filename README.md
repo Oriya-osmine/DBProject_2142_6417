@@ -1,2 +1,604 @@
-# sqlMiniProject
-Kitchen & Food Preparation Department
+# Kitchen & Food Preparation Department Database Project
+
+## Stage A: Database Design & Implementation
+
+---
+
+## Title Page
+
+**Project Name:** Kitchen & Food Preparation Department Management System
+
+**Institution:** [Institution Name]
+
+**Course:** Database Design & Implementation
+
+**Academic Year:** 2025-2026
+
+**Submitted By:**
+- [Student Name 1] - ID: [ID]
+- [Student Name 2] - ID: [ID]
+- [Student Name 3] - ID: [ID]
+
+**Date of Submission:** March 2026
+
+---
+
+## Table of Contents
+
+1. [Introduction](#introduction)
+2. [System Specification](#system-specification)
+3. [System Design](#system-design)
+4. [Database Schema](#database-schema)
+5. [Data Population Methods](#data-population-methods)
+6. [Database Operations](#database-operations)
+7. [Backup & Recovery](#backup--recovery)
+8. [File Structure](#file-structure)
+9. [Appendix](#appendix)
+
+---
+
+## Introduction
+
+### Project Overview
+
+The Kitchen & Food Preparation Department Management System is designed to manage and track all operations within a professional kitchen environment. This system handles everything from station management and chef assignments to order preparation tracking and food safety inspections.
+
+### Business Requirements
+
+**Primary Objectives:**
+- Manage kitchen stations and equipment allocation
+- Track chef assignments and work schedules
+- Monitor kitchen orders from preparation to serving
+- Record detailed preparation tasks and timelines
+- Maintain hygiene and safety inspection records
+- Log all food preparation activities with quality notes
+
+### System Scope
+
+**In Scope:**
+- Kitchen station management (14+ stations)
+- Chef roster and shift management (60+ chefs)
+- Order processing and tracking (510+ orders)
+- Task assignment and monitoring (20,000+ tasks)
+- Food preparation logging (20,000+ logs)
+- Hygiene/safety inspections (510+ inspections)
+
+**Out of Scope:**
+- Menu management (referenced as external system)
+- Customer/guest information
+- Financial/billing system
+- HR management (limited to hiring date and assignments)
+
+### Key Functional Areas
+
+1. **Kitchen Management**: Efficient allocation of kitchen stations
+2. **Workforce Management**: Chef assignments and shift scheduling
+3. **Order Processing**: Complete order lifecycle tracking
+4. **Quality Control**: Hygiene and safety inspections
+5. **Operational Logging**: Detailed preparation records for auditing
+
+---
+
+## System Specification
+
+### AI-Generated System Specification
+
+[**Note**: This section should include the system specification generated using Google AI Studio. Include screenshots of the AI-generated requirements here.]
+
+**Key Features Identified:**
+- Real-time order status tracking
+- Chef workload balancing
+- Temperature and hygiene monitoring
+- Preparation time analytics
+- Station availability management
+
+---
+
+## System Design
+
+### 3NF Normalization
+
+The database schema has been designed to comply with **Third Normal Form (3NF)** requirements:
+
+**3NF Compliance Checklist:**
+- ✅ All tables have a primary key
+- ✅ All attributes depend fully on the primary key (2NF)
+- ✅ No transitive dependencies exist (3NF)
+- ✅ Referential integrity is maintained through foreign keys
+- ✅ Atomic values only (no multi-valued attributes)
+- ✅ Relationships properly decomposed to avoid anomalies
+
+### Design Decisions
+
+#### 1. Two DATE Attributes
+
+As per project requirements, two meaningful DATE attributes were implemented:
+
+| Table | Attribute | Purpose |
+|-------|-----------|---------|
+| chef | hire_date | Tracks when chef was employed (hiring history) |
+| food_prep_log | prep_date | Records the date food was prepared (audit trail) |
+| hygiene_inspection | inspection_date | Documents when inspections were conducted |
+| hygiene_inspection | next_inspection_date | Plans future inspections |
+
+**Rationale**: These dates enable comprehensive auditing, compliance tracking, and analytical queries on temporal patterns.
+
+#### 2. Attribute Selection & Data Types
+
+| Table | Key Attributes | Type | Rationale |
+|-------|---|---|---|
+| kitchen_station | station_name, description, is_active | VARCHAR, TEXT, BOOLEAN | Operational station information |
+| chef | first_name, last_name, specialization, hire_date, is_on_shift | VARCHAR, VARCHAR, VARCHAR, DATE, BOOLEAN | Personnel management and scheduling |
+| kitchen_order | order_id, status (ENUM), start_time, finish_time | INT, VARCHAR, TIMESTAMP, TIMESTAMP | Order lifecycle management |
+| preparation_task | task_description, status, priority_level | TEXT, VARCHAR, INT | Task allocation and prioritization |
+| hygiene_inspection | cleanliness_score, temperature_check, status (ENUM) | NUMERIC(4,1), NUMERIC(5,2), VARCHAR | Health & safety compliance |
+| food_prep_log | preparation_time, prep_date, notes | INT, DATE, TEXT | Quality and productivity tracking |
+
+#### 3. Constraints Implementation
+
+**Primary Keys:**
+- All tables use `GENERATED BY DEFAULT AS IDENTITY` for auto-incrementing numeric IDs
+- Ensures uniqueness and referential integrity
+
+**Foreign Keys:**
+- `kitchen_station ← chef.current_station_id`
+- `chef ← preparation_task.chef_id`
+- `chef ← hygiene_inspection.inspector_id`
+- `chef ← food_prep_log.chef_id`
+- `kitchen_station ← kitchen_order.station_id`
+- `kitchen_order ← preparation_task.kitchen_order_id`
+- `kitchen_station ← hygiene_inspection.station_id`
+
+**Check Constraints:**
+- `kitchen_order.status` ∈ {'Pending', 'In-Prep', 'Ready', 'Served', 'Cancelled'}
+- `preparation_task.priority_level` ∈ [1, 5]
+- `hygiene_inspection.cleanliness_score` ∈ [1.0, 10.0]
+
+**NOT NULL Constraints:**
+- Critical operational data marked as NOT NULL
+- Allows proper data validation at database level
+
+---
+
+## Database Schema
+
+### Entity-Relationship Diagram (ERD)
+
+[**Note**: Insert screenshot of ERD diagram here]
+
+**File**: `erdplus(1).png` and `erdplus(2).png` in the A/ folder
+
+### Data Structure Diagram (DSD)
+
+[**Note**: Insert DSD diagram here]
+
+### Entity Descriptions
+
+#### kitchen_station
+Represents physical kitchen locations and workstations.
+```
+- station_id: INT (Primary Key)
+- station_name: VARCHAR(100) - Name of the station (e.g., "Grill Station")
+- description: TEXT - Detailed description and equipment
+- is_active: BOOLEAN - Operational status
+```
+
+#### chef
+Represents kitchen staff members.
+```
+- chef_id: INT (Primary Key)
+- first_name: VARCHAR(100) - Chef's first name
+- last_name: VARCHAR(100) - Chef's last name
+- specialization: VARCHAR(100) - Chef's specialty/role
+- hire_date: DATE - Employment start date
+- current_station_id: INT (FK) - Currently assigned station
+- is_on_shift: BOOLEAN - Current shift status
+```
+
+#### kitchen_order
+Tracks customer orders through the kitchen workflow.
+```
+- kitchen_order_id: INT (Primary Key)
+- order_id: INT - Reference to order from other department
+- status: VARCHAR(30) - Order state (CHECK constraint)
+- start_time: TIMESTAMP - When preparation began
+- finish_time: TIMESTAMP (nullable) - When preparation completed
+- station_id: INT (FK) - Assigned preparation station
+```
+
+#### preparation_task
+Represents individual tasks within an order.
+```
+- task_id: INT (Primary Key)
+- kitchen_order_id: INT (FK) - Parent order
+- chef_id: INT (FK) - Assigned chef
+- task_description: TEXT - Detailed task description
+- status: VARCHAR(50) - Task state
+- priority_level: INT - Priority [1-5] (CHECK constraint)
+```
+
+#### hygiene_inspection
+Records health and safety inspections.
+```
+- inspection_id: INT (Primary Key)
+- station_id: INT (FK) - Inspected station
+- inspector_id: INT (FK) - Inspecting chef/supervisor
+- inspection_date: DATE - Inspection date
+- next_inspection_date: DATE - Scheduled next inspection
+- cleanliness_score: NUMERIC(4,1) - Score [1.0-10.0]
+- temperature_check: NUMERIC(5,2) - Temperature in Celsius
+- status: VARCHAR(50) - Inspection result
+- comments: TEXT - Additional notes
+```
+
+#### food_prep_log
+Maintains records of all food preparation activities.
+```
+- log_id: INT (Primary Key)
+- chef_id: INT (FK) - Preparing chef
+- menu_item_id: INT - Menu item being prepared
+- preparation_time: INT - Time spent (minutes)
+- prep_date: DATE - Preparation date
+- notes: TEXT - Quality notes and observations
+```
+
+---
+
+## Data Population Methods
+
+This project demonstrates **three different data insertion techniques**:
+
+### Method 1: CSV Import (DataImportFiles)
+
+**Source**: CSV files stored in `A/DataImportFiles/` folder
+
+**Tables Populated**:
+- `kitchen_station` (from `kitchen_station.csv`)
+
+**CSV File Structure**:
+```
+station_name,description,is_active
+Grill Station,Main grilling area for burgers and steaks,true
+Salad Station,Cold prep area for salads and appetizers,true
+...
+```
+
+**SQL Command Used**:
+```sql
+COPY kitchen_station(station_name, description, is_active)
+FROM '/data/import/kitchen_station.csv' DELIMITER ',' CSV HEADER;
+```
+
+**Records Inserted**: ~14 stations
+
+[**Screenshot**: Insert screenshot of CSV import process here]
+
+### Method 2: Mockaroo Service (mockarooFiles)
+
+**Source**: Generated using Mockaroo service (https://www.mockaroo.com/)
+
+**Tables Populated**:
+- `chef` (from `chef.sql`)
+
+**Mockaroo Features Used**:
+- Realistic name generation
+- Date range constraints (June 2025 - March 2026)
+- Boolean field generation for work status
+- Foreign key references validated
+
+**Records Inserted**: ~60 chefs
+
+**File**: `A/mockarooFiles/chef.sql`
+
+[**Screenshot**: Insert screenshot of Mockaroo interface here]
+
+### Method 3: Python Scripts (Programing)
+
+**Source**: Python scripts in `A/Programing/` folder
+
+**Scripts and Output**:
+
+1. **gen_orders.py** → `kitchen_order_data.sql`
+   - Generates 510+ kitchen orders
+   - Realistic timestamps spanning 2025-2026
+   - Random status distribution
+   - Variable preparation times
+
+2. **gen_tasks.py** → `preparation_task_data.sql`
+   - Generates 20,010+ preparation tasks
+   - Links to kitchen orders (1-510 range)
+   - Random chef assignment (1-50)
+   - Priority levels 1-5
+
+3. **gen_logs.py** → `food_prep_log_data.sql`
+   - Generates 20,010+ food prep logs
+   - Date range: Jan 1, 2025 - Mar 1, 2026
+   - Prep time: 5-120 minutes
+   - Quality notes tracking
+
+4. **gen_hygiene.py** → `hygiene_inspection_data.sql` + `hygiene_inspection.csv`
+   - Generates 510+ inspection records
+   - Temperature range: 4-25°C (realistic fridge/kitchen temps)
+   - Cleanliness scores: 3.0-5.9 (realistic distribution)
+   - Status categories: Perfect, All clean, Passed, Needs improvement, Fridge warm, Good
+
+**Execution Command**:
+```bash
+cd A/Programing
+python main_generator.py
+```
+
+**Total Generated Records**: ~40,540 records
+
+[**Screenshot**: Insert screenshot of Python script execution here]
+
+---
+
+## Database Operations
+
+### Creating the Database
+
+**Prerequisites**:
+- Docker and Docker Compose installed
+- PostgreSQL client tools (psql)
+
+**Startup Command**:
+```bash
+docker-compose up -d
+```
+
+**Verify Containers**:
+```bash
+docker ps
+```
+
+**Expected Output**:
+- PostgreSQL_DB container (Port 5432)
+- pgAdminApp container (Port 8080)
+
+### Running SQL Scripts
+
+**1. Create Tables**:
+```bash
+docker exec -i PostgreSQL_DB psql -U myUser -d myDatabase < A/createTables.sql
+```
+
+**2. Drop Tables** (if needed):
+```bash
+docker exec -i PostgreSQL_DB psql -U myUser -d myDatabase < A/dropTables.sql
+```
+
+**3. Insert Data**:
+```bash
+docker exec -i PostgreSQL_DB psql -U myUser -d myDatabase < A/insertTables.sql
+```
+
+**4. Verify Data**:
+```bash
+docker exec -i PostgreSQL_DB psql -U myUser -d myDatabase < A/selectAll.sql
+```
+
+### Validation Queries
+
+**Sample queries to verify data integrity**:
+
+```sql
+-- Count records in each table
+SELECT 'kitchen_station' as table_name, COUNT(*) as count FROM kitchen_station
+UNION ALL
+SELECT 'chef', COUNT(*) FROM chef
+UNION ALL
+SELECT 'kitchen_order', COUNT(*) FROM kitchen_order
+UNION ALL
+SELECT 'preparation_task', COUNT(*) FROM preparation_task
+UNION ALL
+SELECT 'food_prep_log', COUNT(*) FROM food_prep_log
+UNION ALL
+SELECT 'hygiene_inspection', COUNT(*) FROM hygiene_inspection;
+
+-- Verify referential integrity
+SELECT COUNT(*) as orphaned_chefs 
+FROM chef c 
+WHERE c.current_station_id IS NOT NULL 
+AND NOT EXISTS (SELECT 1 FROM kitchen_station ks WHERE ks.station_id = c.current_station_id);
+
+-- Check data distribution
+SELECT status, COUNT(*) as count
+FROM kitchen_order
+GROUP BY status
+ORDER BY count DESC;
+```
+
+[**Screenshots**: Insert screenshots of successful data insertion and validation here]
+
+---
+
+## Backup & Recovery
+
+### Backup Procedure
+
+**Manual Backup Command**:
+```bash
+docker exec PostgreSQL_DB pg_dump -U myUser myDatabase > backup_$(date +%Y%m%d_%H%M%S).sql
+```
+
+**Automated Backup Script** (`backup.sh`):
+```bash
+#!/bin/bash
+TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+BACKUP_FILE="backup_${TIMESTAMP}.sql"
+docker exec PostgreSQL_DB pg_dump -U myUser myDatabase > "${BACKUP_FILE}"
+echo "Backup created: ${BACKUP_FILE}"
+```
+
+**Backup Files Created**:
+- `backup_20260318_120000.sql` (example format)
+- Stored in project root directory
+- Includes complete schema and data
+
+### Recovery Procedure
+
+**Restore from Backup**:
+```bash
+# Stop current container if needed
+docker-compose down
+
+# Create new container
+docker-compose up -d
+
+# Restore database
+docker exec -i PostgreSQL_DB psql -U myUser -d myDatabase < backup_20260318_120000.sql
+
+# Verify restoration
+docker exec -i PostgreSQL_DB psql -U myUser -d myDatabase < A/selectAll.sql
+```
+
+**Cross-Machine Recovery**:
+
+1. **Export Database**:
+   ```bash
+   pg_dump -h localhost -U myUser -d myDatabase > full_backup.sql
+   ```
+
+2. **Transfer Backup**:
+   - Copy `full_backup.sql` to target machine
+   - Ensure PostgreSQL is running on target
+
+3. **Import Database**:
+   ```bash
+   psql -h target_host -U myUser -d myDatabase < full_backup.sql
+   ```
+
+**Verification**:
+```bash
+psql -h target_host -U myUser -d myDatabase -c "SELECT COUNT(*) FROM kitchen_station;"
+```
+
+[**Screenshots**: Insert screenshots of backup creation and recovery process here]
+
+---
+
+## File Structure
+
+```
+sqlMiniProject/
+├── README.md                          # This file
+├── docker-compose.yml                 # Docker Compose configuration
+├── .env                               # Environment variables
+├── LICENSE
+├── A/
+│   ├── createTables.sql              # Table creation script
+│   ├── dropTables.sql                # Table drop script
+│   ├── insertTables.sql              # Data insertion script
+│   ├── selectAll.sql                 # Data verification script
+│   ├── erdplus(1).png                # ERD diagram (variant 1)
+│   ├── erdplus(2).png                # ERD diagram (variant 2)
+│   ├── DataImportFiles/
+│   │   ├── kitchen_station.csv       # Kitchen station data (CSV)
+│   │   └── MOCK_DATA.csv             # Additional mock data
+│   ├── mockarooFiles/
+│   │   └── chef.sql                  # Chef data from Mockaroo
+│   └── Programing/
+│       ├── main_generator.py         # Main script executor
+│       ├── gen_orders.py             # Kitchen order generator
+│       ├── gen_logs.py               # Food prep log generator
+│       ├── gen_tasks.py              # Task generator
+│       ├── gen_hygiene.py            # Hygiene inspection generator
+│       └── [Generated SQL files]     # Output files after execution
+└── init-db/                           # Docker initialization scripts
+```
+
+---
+
+## Appendix
+
+### A. System Specifications (AI-Generated)
+
+[Include detailed system specification document from Google AI Studio here]
+
+### B. Data Dictionary
+
+| Table | Field | Type | Constraints | Description |
+|-------|-------|------|-------------|-------------|
+| kitchen_station | station_id | INT | PK, AUTO | Station identifier |
+| kitchen_station | station_name | VARCHAR(100) | NOT NULL | Station display name |
+| kitchen_station | description | TEXT | - | Equipment and details |
+| kitchen_station | is_active | BOOLEAN | DEFAULT TRUE | Operational status |
+| chef | chef_id | INT | PK, AUTO | Chef identifier |
+| chef | first_name | VARCHAR(100) | NOT NULL | Chef's first name |
+| chef | last_name | VARCHAR(100) | NOT NULL | Chef's last name |
+| chef | specialization | VARCHAR(100) | - | Culinary specialization |
+| chef | hire_date | DATE | NOT NULL | Employment start date |
+| chef | current_station_id | INT | FK | Current assignment |
+| chef | is_on_shift | BOOLEAN | DEFAULT FALSE | Current status |
+
+[Continue for all tables...]
+
+### C. Query Examples
+
+**1. Find chefs currently on shift at each station**:
+```sql
+SELECT c.chef_id, c.first_name, c.last_name, ks.station_name
+FROM chef c
+JOIN kitchen_station ks ON c.current_station_id = ks.station_id
+WHERE c.is_on_shift = true
+ORDER BY ks.station_name;
+```
+
+**2. Get average preparation time by chef**:
+```sql
+SELECT c.first_name, c.last_name, 
+       AVG(fpl.preparation_time) as avg_prep_time
+FROM chef c
+LEFT JOIN food_prep_log fpl ON c.chef_id = fpl.chef_id
+GROUP BY c.chef_id, c.first_name, c.last_name
+ORDER BY avg_prep_time DESC;
+```
+
+**3. Find stations needing inspection**:
+```sql
+SELECT ks.station_id, ks.station_name,
+       MAX(hi.inspection_date) as last_inspection
+FROM kitchen_station ks
+LEFT JOIN hygiene_inspection hi ON ks.station_id = hi.station_id
+GROUP BY ks.station_id, ks.station_name
+HAVING MAX(hi.inspection_date) < CURRENT_DATE - INTERVAL '30 days'
+       OR MAX(hi.inspection_date) IS NULL;
+```
+
+### D. Normalization Analysis
+
+**1NF (Atomic Values)**:
+- ✅ All attributes contain atomic values
+- No multi-valued attributes
+
+**2NF (Full Functional Dependency)**:
+- ✅ All non-key attributes depend fully on primary key
+- No partial dependencies on composite keys
+
+**3NF (No Transitive Dependencies)**:
+- ✅ No non-key attribute depends on another non-key attribute
+- Example: `hygiene_inspection(status)` does not depend on other non-key fields
+
+### E. Contact Information
+
+**Database Administrator**:
+- Name: [Administrator Name]
+- Email: [Email]
+
+**Project Team**:
+- [Team member 1]
+- [Team member 2]
+- [Team member 3]
+
+### F. Version History
+
+| Version | Date | Changes |
+|---------|------|---------|
+| 1.0 | March 18, 2026 | Initial database schema and data population |
+
+---
+
+**End of Document**
+
+*Last Updated: March 18, 2026*

@@ -10,7 +10,7 @@ insert into chef (first_name, last_name, specialization, hire_date, current_stat
 insert into chef (first_name, last_name, specialization, hire_date, current_station_id, is_on_shift) values ('Hadlee', 'Jeandillou', 'Butcher', '9/2/2025', 3, true);
 insert into chef (first_name, last_name, specialization, hire_date, current_station_id, is_on_shift) values ('Rriocard', 'Emerton', 'Prep Cook', '6/27/2025', 8, false);
 insert into chef (first_name, last_name, specialization, hire_date, current_station_id, is_on_shift) values ('Uriah', 'Davidovitz', 'Barista', '3/13/2026', 14, true);
-insert into chef (first_name, last_name, specialization, hire_date, current_station_id, is_on_shift) values ('Arthur', 'Raine', 'Executive Chef', '12/1/2025', 15, false);
+insert into chef (first_name, last_name, specialization, hire_date, current_station_id, is_on_shift) values ('Arthur', 'Raine', 'Executive Chef', '12/1/2025', 14, false);
 insert into chef (first_name, last_name, specialization, hire_date, current_station_id, is_on_shift) values ('Fredrika', 'Cashin', 'Poissonnier', '8/9/2025', 5, true);
 insert into chef (first_name, last_name, specialization, hire_date, current_station_id, is_on_shift) values ('Monika', 'Babalola', 'Expeditor', '5/7/2025', 4, true);
 insert into chef (first_name, last_name, specialization, hire_date, current_station_id, is_on_shift) values ('Maire', 'Deegan', 'Barista', '3/7/2026', 5, false);
@@ -30,7 +30,7 @@ insert into chef (first_name, last_name, specialization, hire_date, current_stat
 insert into chef (first_name, last_name, specialization, hire_date, current_station_id, is_on_shift) values ('Hermione', 'Knibb', 'Saucier', '12/24/2025', 6, true);
 insert into chef (first_name, last_name, specialization, hire_date, current_station_id, is_on_shift) values ('Una', 'Rouby', 'Butcher', '8/21/2025', 12, true);
 insert into chef (first_name, last_name, specialization, hire_date, current_station_id, is_on_shift) values ('Tamarah', 'Chatelet', 'Barista', '5/21/2025', 4, false);
-insert into chef (first_name, last_name, specialization, hire_date, current_station_id, is_on_shift) values ('Mady', 'Doncaster', 'Sous Chef', '3/10/2026', 15, true);
+insert into chef (first_name, last_name, specialization, hire_date, current_station_id, is_on_shift) values ('Mady', 'Doncaster', 'Sous Chef', '3/10/2026', 14, true);
 insert into chef (first_name, last_name, specialization, hire_date, current_station_id, is_on_shift) values ('Inge', 'Krebs', 'Fry Cook', '11/2/2025', 4, true);
 insert into chef (first_name, last_name, specialization, hire_date, current_station_id, is_on_shift) values ('Sibella', 'Murie', 'Saucier', '1/24/2026', 2, true);
 insert into chef (first_name, last_name, specialization, hire_date, current_station_id, is_on_shift) values ('Anne', 'Cassy', 'Pizzaiolo', '3/25/2025', 13, true);
@@ -46,7 +46,7 @@ insert into chef (first_name, last_name, specialization, hire_date, current_stat
 insert into chef (first_name, last_name, specialization, hire_date, current_station_id, is_on_shift) values ('Edyth', 'Alliker', 'Grill Master', '10/11/2025', 8, false);
 insert into chef (first_name, last_name, specialization, hire_date, current_station_id, is_on_shift) values ('Vivie', 'Bordessa', 'Pastry Chef', '8/9/2025', 1, false);
 insert into chef (first_name, last_name, specialization, hire_date, current_station_id, is_on_shift) values ('Monro', 'Durrett', 'Executive Chef', '12/8/2025', 1, false);
-insert into chef (first_name, last_name, specialization, hire_date, current_station_id, is_on_shift) values ('Somerset', 'Meddings', 'Prep Cook', '3/9/2026', 15, true);
+insert into chef (first_name, last_name, specialization, hire_date, current_station_id, is_on_shift) values ('Somerset', 'Meddings', 'Prep Cook', '3/9/2026', 14, true);
 insert into chef (first_name, last_name, specialization, hire_date, current_station_id, is_on_shift) values ('Maressa', 'Splaven', 'Poissonnier', '8/20/2025', 12, true);
 insert into chef (first_name, last_name, specialization, hire_date, current_station_id, is_on_shift) values ('Ryann', 'Shanklin', 'Line Cook', '5/30/2025', 5, false);
 insert into chef (first_name, last_name, specialization, hire_date, current_station_id, is_on_shift) values ('Aundrea', 'Verissimo', 'Prep Cook', '6/1/2025', 7, false);

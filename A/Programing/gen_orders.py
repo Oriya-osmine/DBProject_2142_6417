@@ -1,7 +1,11 @@
 import random
 from datetime import datetime, timedelta
 
-def generate_orders(num_records=500):
+def generate_orders(num_records=510):
+    """
+    Generate kitchen_order records.
+    Creates SQL INSERT statements for the kitchen_order table.
+    """
     output_file = "kitchen_order_data.sql"
     statuses = ['Pending', 'In-Prep', 'Ready', 'Served', 'Cancelled']
 
@@ -12,14 +16,15 @@ def generate_orders(num_records=500):
         random_seconds = random.randrange(int(time_between.total_seconds()))
         return start + timedelta(seconds=random_seconds)
 
-    print("Generating orders...")
+    print(f"Generating {num_records} kitchen orders...")
     with open(output_file, 'w', encoding='utf-8') as f:
-        f.write("-- 500 INSERTs for kitchen_order\n")
+        f.write(f"-- {num_records} INSERTs for kitchen_order table\n")
+        f.write("-- Generated automatically using Python script\n\n")
         for _ in range(num_records):
             order_id = random.randint(1000, 9999)
             status = random.choice(statuses)
             start_time = random_start_time()
-            station_id = random.randint(1, 15)
+            station_id = random.randint(1, 14)
 
             if status in ['Pending', 'In-Prep']:
                 finish_time_str = "NULL"
@@ -31,3 +36,6 @@ def generate_orders(num_records=500):
             sql = f"INSERT INTO kitchen_order (order_id, status, start_time, finish_time, station_id) VALUES ({order_id}, '{status}', '{start_time.strftime('%Y-%m-%d %H:%M:%S')}', {finish_time_str}, {station_id});\n"
             f.write(sql)
     print(f"Created '{output_file}'")
+
+if __name__ == "__main__":
+    generate_orders()
