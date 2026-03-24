@@ -29,6 +29,3 @@ def generate_tasks(num_records=20010):
 
 if __name__ == "__main__":
     generate_tasks()
-
-if __name__ == "__main__":
-    generate_tasks()

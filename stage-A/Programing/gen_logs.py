@@ -34,6 +34,3 @@ def generate_logs(num_records=20010):
 
 if __name__ == "__main__":
     generate_logs()
-
-if __name__ == "__main__":
-    generate_logs()
