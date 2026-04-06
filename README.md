@@ -307,55 +307,63 @@
 ---
 
 ## 🔒 CONSTRAINT 1: Finish Time After Start
+**הסבר:** מוודא שזמן סיום ההזמנה במטבח לא יהיה מוקדם מזמן ההתחלה שלה. זה מונע שגיאות הקלדה ושומר על סדר כרונולוגי תקין במערכת.
+
 **ALTER:** ![S2_constraint1_alter.png](screenshots/screenshots-S2/S2_constraint1_alter.png)
-**הפרה:** ![S2_constraint1_violation.png](screenshots/screenshots-S2/S2_constraint1_violation.png)
 **שגיאה:** ![S2_constraint1_error.png](screenshots/screenshots-S2/S2_constraint1_error.png)
 
 ---
 
 ## 🔒 CONSTRAINT 2: Positive Prep Time
+**הסבר:** מבטיח שזמן הכנת המנה יהיה תמיד מספר חיובי הגדול מאפס. לא ניתן להזין זמן הכנה שלילי או אפסי, מה שמבטיח נתונים ריאליים.
+
 **ALTER:** ![S2_constraint2_alter.png](screenshots/screenshots-S2/S2_constraint2_alter.png)
-**הפרה:** ![S2_constraint2_violation.png](screenshots/screenshots-S2/S2_constraint2_violation.png)
 **שגיאה:** ![S2_constraint2_error.png](screenshots/screenshots-S2/S2_constraint2_error.png)
 
 ---
 
 ## 🔒 CONSTRAINT 3: Next Inspection After Current
+**הסבר:** מוודא שתאריך הביקורת הבאה שנקבע תמיד יהיה מאוחר יותר מתאריך הביקורת הנוכחית. אילוץ זה מונע סתירות בלוח הזמנים של הביקורות.
+
 **ALTER:** ![S2_constraint3_alter.png](screenshots/screenshots-S2/S2_constraint3_alter.png)
-**הפרה:** ![S2_constraint3_violation.png](screenshots/screenshots-S2/S2_constraint3_violation.png)
 **שגיאה:** ![S2_constraint3_error.png](screenshots/screenshots-S2/S2_constraint3_error.png)
 
 ---
 
 ## 🔒 CONSTRAINT 4: Valid Task Status
+**הסבר:** מגביל את שדה הסטטוס של משימה לרשימה סגורה של ערכים מוגדרים (כמו Pending, Ready וכו'). מונע הזנת מצבים שאינם קיימים בתהליך העבודה.
+
 **ALTER:** ![S2_constraint4_alter.png](screenshots/screenshots-S2/S2_constraint4_alter.png)
-**הפרה:** ![S2_constraint4_violation.png](screenshots/screenshots-S2/S2_constraint4_violation.png)
 **שגיאה:** ![S2_constraint4_error.png](screenshots/screenshots-S2/S2_constraint4_error.png)
 
 ---
 
 ## 🔒 CONSTRAINT 5: Unique Station Names
+**הסבר:** מוודא שלא יהיו שתי תחנות עבודה במטבח עם אותו שם. השם חייב להיות ייחודי לכל תחנה לצורך זיהוי מהיר ומניעת בלבול.
+
 **ALTER:** ![S2_constraint5_alter.png](screenshots/screenshots-S2/S2_constraint5_alter.png)
-**הפרה:** ![S2_constraint5_violation.png](screenshots/screenshots-S2/S2_constraint5_violation.png)
 **שגיאה:** ![S2_constraint5_error.png](screenshots/screenshots-S2/S2_constraint5_error.png)
 
 ---
 
 ## 🔒 CONSTRAINT 6: Hire Date Not Future
+**הסבר:** מונע הזנת תאריך העסקה עתידי עבור שפים. תאריך ההעסקה חייב להיות תאריך של היום או מהעבר, מה ששומר על אמינות רישומי כוח האדם.
+
 **ALTER:** ![S2_constraint6_alter.png](screenshots/screenshots-S2/S2_constraint6_alter.png)
-**הפרה:** ![S2_constraint6_violation.png](screenshots/screenshots-S2/S2_constraint6_violation.png)
 **שגיאה:** ![S2_constraint6_error.png](screenshots/screenshots-S2/S2_constraint6_error.png)
 
 ---
 
 ## 🔒 CONSTRAINT 7: Priority Level (1-5)
-**הפרה:** ![S2_constraint7_violation.png](screenshots/screenshots-S2/S2_constraint7_violation.png)
+**הסבר:** אילוץ זה כבר הוגדר כחלק ממבנה הטבלה המקורי (Stage A). הוא מוודא שרמת העדיפות של משימה תהיה בטווח שבין 1 ל-5 בלבד.
+
 **שגיאה:** ![S2_constraint7_error.png](screenshots/screenshots-S2/S2_constraint7_error.png)
 
 ---
 
 ## 🔒 CONSTRAINT 8: Cleanliness Score (1.0-10.0)
-**הפרה:** ![S2_constraint8_violation.png](screenshots/screenshots-S2/S2_constraint8_violation.png)
+**הסבר:** אילוץ זה כבר הוגדר כחלק ממבנה הטבלה המקורי (Stage A). הוא מגביל את ציון הניקיון בביקורת לטווח שבין 1.0 ל-10.0, למניעת חריגות בנתוני הביקורת.
+
 **שגיאה:** ![S2_constraint8_error.png](screenshots/screenshots-S2/S2_constraint8_error.png)
 
 ---
