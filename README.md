@@ -244,6 +244,7 @@
 
 ## 📊 QUERY 8: Temperature Anomalies
 **תיאור השאילתה (מטרה עסקית):** זוהי שאילתת בקרה קריטית המיועדת להבטיח עמידה בתקני משרד הבריאות. היא סורקת את כל בדיקות ההיגיינה ומתעדת את הטמפרטורות שנמדדו במקררים ובמקפיאים. באמצעות משפט `CASE`, המערכת מסווגת כל מדידה לרמת סיכון (החל מ-"תקין", דרך "חמים - סיכון" ועד "חם - קריטי"). המטרה היא להציג למנהל המשמרת דוח מיידי על תקלות בציוד הקירור, כשהוא ממוין כך שהחריגות החמורות ביותר (מעל 15 מעלות) יופיעו תמיד בראש הרשימה, כדי למנוע קלקול מזון וסיכון בריאותי.
+
 ![S2_query8_code.png](screenshots/screenshots-S2/S2_query8_code.png)
 ![S2_query8_execution.png](screenshots/screenshots-S2/S2_query8_execution.png)
 ![S2_query8_result.png](screenshots/screenshots-S2/S2_query8_result.png)
@@ -251,6 +252,8 @@
 ---
 
 ## ✏️ UPDATE 1: Orders Ready
+**תיאור השאילתה (מטרה עסקית):** שאילתה זו מבצעת עדכון סטטוס אוטומטי (מ-'In-Prep' ל-'Ready') עבור הזמנות שכל משימות ההכנה שלהן במטבח הושלמו. המטרה היא לייעל את עבודת הצוות ולחסוך מהשף הראשי את הצורך לעדכן ידנית כל הזמנה, תוך הבטחה שהזמנות מסומנות כמוכנות להגשה רק כשבאמת כל המנות שלהן סוימו. (בצילומי המסך ניתן לראות כיצד המערכת איתרה ועדכנה 5 הזמנות במקביל).
+
 **לפני:** ![S2_update1_before.png](screenshots/screenshots-S2/S2_update1_before.png)
 **הרצה:** ![S2_update1_execution.png](screenshots/screenshots-S2/S2_update1_execution.png)
 **אחרי:** ![S2_update1_after.png](screenshots/screenshots-S2/S2_update1_after.png)
@@ -258,6 +261,8 @@
 ---
 
 ## ✏️ UPDATE 2: Chef Station Assignment
+**תיאור השאילתה (מטרה עסקית):** שאילתה לניהול דינמי של כוח אדם במשמרת. היא נועדה להעביר שף ספציפי (לפי תעודת זהות / ID) לתחנת עבודה אחרת, כדי לאזן עומסים במטבח בזמן אמת ולמנוע צווארי בקבוק בתחנות לחוצות.
+
 **לפני:** ![S2_update2_before.png](screenshots/screenshots-S2/S2_update2_before.png)
 **הרצה:** ![S2_update2_execution.png](screenshots/screenshots-S2/S2_update2_execution.png)
 **אחרי:** ![S2_update2_after.png](screenshots/screenshots-S2/S2_update2_after.png)
@@ -265,6 +270,8 @@
 ---
 
 ## ✏️ UPDATE 3: Next Inspection Date
+**תיאור השאילתה (מטרה עסקית):** תהליך אוטומטי לבקרת איכות ובטיחות מזון. השאילתה סורקת את בדיקות הניקיון שבוצעו בחודש מסוים, ומגדירה אוטומטית את תאריך היעד לביקורת הבאה ל-7 ימים בדיוק לאחר תאריך הבדיקה הנוכחית, כדי לוודא עמידה רציפה בתקני משרד הבריאות.
+
 **לפני:** ![S2_update3_before.png](screenshots/screenshots-S2/S2_update3_before.png)
 **הרצה:** ![S2_update3_execution.png](screenshots/screenshots-S2/S2_update3_execution.png)
 **אחרי:** ![S2_update3_after.png](screenshots/screenshots-S2/S2_update3_after.png)
@@ -272,6 +279,9 @@
 ---
 
 ## 🗑️ DELETE 1: Old Cancelled Orders
+**תיאור השאילתה (מטרה עסקית):** שאילתה זו מוחקת מהמערכת הזמנות שבוטלו (Status = 'Cancelled') לפני למעלה מ-90 יום. מחיקה זו חיונית למניעת "נפיחות" של מסד הנתונים (Database Bloat) ומבטיחה ששאילתות הניהול היומיומיות ירוצו מהר יותר על נתונים רלוונטיים בלבד. 
+*הערה טכנית:* השאילתה מבוצעת בשלבים (באמצעות CTE) כדי לנקות תחילה את המשימות המקושרות ולמנוע שגיאת Foreign Key.
+
 **לפני:** ![S2_delete1_before.png](screenshots/screenshots-S2/S2_delete1_before.png)
 **הרצה:** ![S2_delete1_execution.png](screenshots/screenshots-S2/S2_delete1_execution.png)
 **אחרי:** ![S2_delete1_after.png](screenshots/screenshots-S2/S2_delete1_after.png)
@@ -279,6 +289,8 @@
 ---
 
 ## 🗑️ DELETE 2: Duplicate Prep Logs
+**תיאור השאילתה (מטרה עסקית):** שאילתה לטיוב נתונים (Data Cleaning). היא מאתרת רשומות ביומן העבודה שנוצרו בטעות פעמיים (עבור אותו שף, אותה מנה ובאותו תאריך) ומוחקת את הכפילויות המאוחרות יותר. השאילתה שומרת רק את הרשומה המקורית ביותר (`MIN(log_id)`), ובכך מבטיחה דוחות פרודוקטיביות אמינים ומדויקים.
+
 **לפני:** ![S2_delete2_before.png](screenshots/screenshots-S2/S2_delete2_before.png)
 **הרצה:** ![S2_delete2_execution.png](screenshots/screenshots-S2/S2_delete2_execution.png)
 **אחרי:** ![S2_delete2_after.png](screenshots/screenshots-S2/S2_delete2_after.png)
@@ -286,6 +298,8 @@
 ---
 
 ## 🗑️ DELETE 3: Tasks for Cancelled Orders
+**תיאור השאילתה (מטרה עסקית):** שאילתה זו מנקה משימות הכנה (Tasks) המשויכות להזמנות שכבר בוטלו מזמן (מעל 60 יום). שמירה על המשימות הללו יוצרת "רעש" מיותר ברשימות העבודה של השפים ובדוחות המלאי. המחיקה מבטיחה שכל משימה בבסיס הנתונים משויכת להזמנה פעילה או רלוונטית בלבד.
+
 **לפני:** ![S2_delete3_before.png](screenshots/screenshots-S2/S2_delete3_before.png)
 **הרצה:** ![S2_delete3_execution.png](screenshots/screenshots-S2/S2_delete3_execution.png)
 **אחרי:** ![S2_delete3_after.png](screenshots/screenshots-S2/S2_delete3_after.png)

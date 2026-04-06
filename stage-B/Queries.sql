@@ -75,14 +75,14 @@ SELECT
     c.specialization,
     COUNT(pt.task_id) as high_priority_tasks
 FROM chef c
+LEFT JOIN preparation_task pt ON c.chef_id = pt.chef_id 
+    AND pt.priority_level >= 4 
+    AND pt.status IN ('Pending', 'In-Prep')
 WHERE c.chef_id IN (
     SELECT DISTINCT chef_id
     FROM preparation_task
     WHERE priority_level >= 4 AND status IN ('Pending', 'In-Prep')
 )
-LEFT JOIN preparation_task pt ON c.chef_id = pt.chef_id 
-    AND pt.priority_level >= 4 
-    AND pt.status IN ('Pending', 'In-Prep')
 GROUP BY c.chef_id, c.first_name, c.last_name, c.specialization
 ORDER BY high_priority_tasks DESC;
 
@@ -411,9 +411,13 @@ AND EXTRACT(MONTH FROM inspection_date) = 2;
 -- Business Need: Archive/clean obsolete cancelled orders to reduce 
 -- database bloat and improve query performance on active orders
 -- ────────────────────────────────────────────────────────────────────
-DELETE FROM kitchen_order
-WHERE status = 'Cancelled' 
-AND start_time < (CURRENT_DATE - INTERVAL '90 days');
+DELETE FROM preparation_task
+WHERE kitchen_order_id IN (
+    SELECT kitchen_order_id
+    FROM kitchen_order
+    WHERE status = 'Cancelled' 
+    AND start_time < (CURRENT_DATE - INTERVAL '90 days')
+);
 
 -- ────────────────────────────────────────────────────────────────────
 -- DELETE 2: Remove Duplicate Food Prep Logs (Keep Earliest)
