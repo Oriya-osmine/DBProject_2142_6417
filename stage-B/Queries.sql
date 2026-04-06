@@ -407,17 +407,22 @@ AND EXTRACT(MONTH FROM inspection_date) = 2;
 -- ====================================================================
 
 -- ────────────────────────────────────────────────────────────────────
--- DELETE 1: Remove Cancelled Orders Older Than 90 Days
--- Business Need: Archive/clean obsolete cancelled orders to reduce 
--- database bloat and improve query performance on active orders
+-- DELETE 1: Remove Cancelled Orders & Their Orphaned Tasks
+-- Business Need: Clean obsolete records while maintaining referential integrity.
 -- ────────────────────────────────────────────────────────────────────
-DELETE FROM preparation_task
-WHERE kitchen_order_id IN (
-    SELECT kitchen_order_id
+
+WITH orders_to_delete AS (
+    SELECT kitchen_order_id 
     FROM kitchen_order
     WHERE status = 'Cancelled' 
     AND start_time < (CURRENT_DATE - INTERVAL '90 days')
-);
+),
+deleted_tasks AS (
+    DELETE FROM preparation_task
+    WHERE kitchen_order_id IN (SELECT kitchen_order_id FROM orders_to_delete)
+)
+DELETE FROM kitchen_order
+WHERE kitchen_order_id IN (SELECT kitchen_order_id FROM orders_to_delete);
 
 -- ────────────────────────────────────────────────────────────────────
 -- DELETE 2: Remove Duplicate Food Prep Logs (Keep Earliest)
