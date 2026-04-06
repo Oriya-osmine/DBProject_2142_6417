@@ -129,21 +129,25 @@
 
 ---
 
-## 🔍 PAIR 1: Workload Distribution per Station (JOIN vs CTE)
+## 🔍 PAIR 1: חלוקת עומס עבודה לפי תחנות (Workload Distribution)
 
-### PAIR 1A: Using JOIN + GROUP BY - קוד, הרצה ותוצאה
+**תיאור השאילתה (מטרה עסקית):** שאילתה זו מציגה את עומס העבודה הנוכחי בכל תחנה במטבח. היא סופרת את סך ההזמנות לכל תחנה, ומפלגת אותן לפי סטטוסים (כמה בהמתנה, בהכנה, מוכנות וכו'). המטרה היא לאפשר למנהל המטבח לזהות "צווארי בקבוק" בזמן אמת (למשל, עומס חריג של מנות "בהמתנה" בתחנת הגריל) ולהפנות כוח אדם בהתאם.
+
+### גישה א': שימוש ב-JOIN עם פונקציות אגרגציה (CASE) - קוד, הרצה ותוצאה
 ![S2_pair1a_code.png](screenshots/screenshots-S2/S2_pair1a_code.png)
 ![S2_pair1a_execution.png](screenshots/screenshots-S2/S2_pair1a_execution.png)
 ![S2_pair1a_result.png](screenshots/screenshots-S2/S2_pair1a_result.png)
 
-### PAIR 1B: Using CTE - קוד, הרצה ותוצאה
+### גישה ב': שימוש בטבלה זמנית (CTE) - קוד, הרצה ותוצאה
 ![S2_pair1b_code.png](screenshots/screenshots-S2/S2_pair1b_code.png)
 ![S2_pair1b_execution.png](screenshots/screenshots-S2/S2_pair1b_execution.png)
 ![S2_pair1b_result.png](screenshots/screenshots-S2/S2_pair1b_result.png)
 
-**הבדל יעילות:**
-- **PAIR 1A (JOIN):** סריקה ישירה, מהיר עם indexes, כ-1 pass בלבד
-- **PAIR 1B (CTE):** קריא יותר, ביצועים דומים עם indexes טובים
+**הסבר על ההבדלים - מה יותר יעיל ולמה?** במקרה של השאילתה הזו, **גישה א' (JOIN) יעילה יותר**.
+
+* **גישה א' (JOIN + CASE):** מבצעת סריקה אחת בלבד (Single Pass) של הנתונים. מסד הנתונים קורא את הטבלאות, מחבר אותן, ומיד מחשב את הסיכומים באמצעות פונקציות ה-`SUM(CASE...)`. זו פעולה ישירה שחוסכת במשאבי עיבוד.
+* **גישה ב' (CTE):** עובדת בשני שלבים. קודם כל היא יוצרת בזיכרון טבלה זמנית (ה-CTE) המסכמת את הנתונים, ורק אז שולפת ומעצבת אותם לתוצאה הסופית. 
+* **השורה התחתונה:** גישה ב' מוסיפה "תקורה" (Overhead) ושלב עיבוד מיותר. אמנם קוד עם CTE נראה לרוב קריא ומסודר יותר לעין האנושית, אך מבחינת ביצועי מנוע ה-SQL, גישה א' מהירה ופשוטה יותר לביצוע.
 
 ---
 
