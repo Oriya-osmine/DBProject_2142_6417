@@ -1,4 +1,4 @@
-# דוח פרויקט - מערכת ניהול המטבח (Stage A)
+# דוח פרויקט - מערכת ניהול המטבח (Stage A & B)
 
 ## 📋 שער
 **מגישים:** דביר דיעי ואוריה חנוכה 
@@ -17,6 +17,7 @@
 5. [שיטות הכנסת נתונים](#-שיטות-הכנסת-נתונים)
 6. [גיבוי ושחזור נתונים](#-גיבוי-ושחזור-נתונים)
 7. [מבנה הפרויקט](#-מבנה-הפרויקט)
+8. [שלב ב': שאילתות ואילוצים](#-שלב-ב-שאילתות-ואילוצים)
 
 ---
 
@@ -38,19 +39,19 @@
 
 ### מסך 1: דשבורד ראשי
 צפייה בזמן אמת בהזמנות וסטטוס התחנות.  
-![Dashboard Mockup](screenshots/01-dashboard-mockup.png)
+![Dashboard Mockup](screenshots/screenshots-S1/01-dashboard-mockup.png)
 
 ### מסך 2: ניהול תחנות
 סקירת פעילות התחנות והשפים המוקצים אליהן.  
-![Stations Mockup](screenshots/02-stations-mockup.png)
+![Stations Mockup](screenshots/screenshots-S1/02-stations-mockup.png)
 
 ### מסך 3: ניהול צוות שפים
 רשימת השפים, התמחויות וסטטוס משמרת.  
-![Chefs Mockup](screenshots/03-chefs-mockup.png)
+![Chefs Mockup](screenshots/screenshots-S1/03-chefs-mockup.png)
 
 ### מסך 4: בקרת היגיינה
 דוח ריכוז בדיקות בטיחות מזון וניקיון.  
-![Hygiene Mockup](screenshots/04-hygiene-mockup.png)
+![Hygiene Mockup](screenshots/screenshots-S1/04-hygiene-mockup.png)
 
 ---
 
@@ -58,11 +59,11 @@
 
 ### ERD - Entity Relationship Diagram
 מבנה הקשרים הלוגיים בין הישויות במערכת:  
-![ERD Diagram](screenshots/erd-diagram.png)
+![ERD Diagram](screenshots/screenshots-S1/erd-diagram.png)
 
 ### DSD - Detailed Structure Diagram
 פירוט מבנה הטבלאות, סוגי נתונים ומפתחות:  
-![DSD Diagram](screenshots/dsd-diagram.png)
+![DSD Diagram](screenshots/screenshots-S1/dsd-diagram.png)
 
 ---
 
@@ -79,15 +80,15 @@
 
 ### שיטה 1: CSV Import (kitchen_station)
 שימוש בפקודת `COPY` לייבוא נתונים סטטיים של תחנות עבודה מתוך קובץ CSV.  
-![CSV Execution](screenshots/method1-csv-execution.png)
+![CSV Execution](screenshots/screenshots-S1/method1-csv-execution.png)
 
 ### שיטה 2: Mockaroo SQL (chef)
 ייבוא 60 שפים עם נתונים אמינים (שמות, תאריכי העסקה) באמצעות סקריפט SQL מוכן.  
-![Mockaroo Execution](screenshots/method2-mockaroo-execution.png)
+![Mockaroo Execution](screenshots/screenshots-S1/method2-mockaroo-execution.png)
 
 ### שיטה 3: Python-Generated SQL
 שימוש בסקריפטים של Python ליצירת מעל 40,000 רשומות של הזמנות, משימות ורישומי הכנה.  
-![Python Execution](screenshots/method3-python-execution.png)
+![Python Execution](screenshots/screenshots-S1/method3-python-execution.png)
 
 ---
 
@@ -95,11 +96,11 @@
 
 ### גיבוי מלא
 ביצוע Dump מלא של בסיס הנתונים כולל מבנה ונתונים לקובץ SQL חיצוני.  
-![Backup Execution](screenshots/backup-execution.png)
+![Backup Execution](screenshots/screenshots-S1/backup-execution.png)
 
 ### שחזור מגיבוי
 תהליך טעינת הנתונים מקובץ גיבוי לשרת ריק לשחזור מלא של המצב הקודם.  
-![Restore Execution](screenshots/restore-execution.png)
+![Restore Execution](screenshots/screenshots-S1/restore-execution.png)
 
 ---
 
@@ -120,11 +121,35 @@
 ## 📁 מבנה הפרויקט
 * `init-db/`: סקריפטים להקמה אוטומטית של בסיס הנתונים בעת הרצת ה-Container.
 * `stage-A/`: קבצי המקור של שלב א' (SQL, Python Generators, Data files).
-* `screenshots/`: תיעוד חזותי של המערכת, הרצות ו-Mockups.
+* `stage-B/`: קבצי המקור של שלב ב' (Queries, Constraints, RollbackCommit, Backup).
+* `screenshots/`: תיעוד חזותי של המערכת, הרצות ו-Mockups
+  * `screenshots-S1/`: צילומי מסך של שלב א' (Mockups, ERD, Methods, Backup/Restore)
+  * `screenshots-S2/`: צילומי מסך של שלב ב' (Queries, Updates, Deletes, Constraints, Transactions)
 * `docker-compose.yml`: הגדרת תשתיות השרת, ה-Volumes והרשת.
 
 ---
-**סטטוס פרויקט:** ✅ שלב א' הושלם בהצלחה. המערכת מוכנה לשלבי הפיתוח הבאים.
+
+## 🔷 שלב ב': שאילתות ואילוצים
+
+### 📌 סיכום שלב ב'
+בשלב זה ביצענו:
+- ✅ **8 שאילתות SELECT** (4 זוגות דואליים להשוואת יעילות)
+- ✅ **3 שאילתות UPDATE** (עדכונים מותנים וסטטוס)
+- ✅ **3 שאילתות DELETE** (ניקיון נתונים ישנים)
+- ✅ **8 אילוצים עם ALTER TABLE** (אימות עסקי של נתונים)
+- ✅ **ROLLBACK ו-COMMIT** (הדגמות טרנזקציות)
+
+### 🔗 קובצי שלב ב'
+- **Queries.sql** - כל השאילתות (SELECT, UPDATE, DELETE)
+- **Constraints.sql** - אילוצים עם ALTER TABLE וניסיונות הפרה
+- **RollbackCommit.sql** - דוגמות של ROLLBACK ו-COMMIT
+- **backup2.sql** - גיבוי מעודכן של בסיס הנתונים
+
+### 📊 דוח מפורט
+הדוח המלא של שלב ב' כולל צילומי מסך וקוד זמין ב:
+📄 **[stage-B/README_STAGE_B.md](stage-B/README_STAGE_B.md)**
 
 ---
-**עדכון אחרון:** 18/03/2026
+
+---
+**עדכון אחרון:** 06/04/2026
