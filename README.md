@@ -368,17 +368,47 @@
 
 ---
 
-## 🔄 ROLLBACK - Transaction Undo
+# 🔄 Transaction Management - ROLLBACK & COMMIT
+
+קבצי ה-SQL הבאים מדגימים את היכולת של מסד הנתונים לנהל טרנזקציות, המאפשרות לבצע סדרת פעולות כיחידה אחת ולבחור האם לשמור אותן או לבטלן במקרה של טעות.
+
+---
+
+## 🔄 Scenario 1: ROLLBACK - Transaction Undo
+**הסבר:** תרחיש זה מדגים כיצד ניתן לבטל שינויים שבוצעו. עדכנו סטטוס של משימה, אך בחרנו לבצע `ROLLBACK` שמחזיר את הנתונים למצבם המקורי כאילו לא קרה דבר.
+
+1. **בדיקת המצב הראשוני:** הצגת המשימה לפני השינוי.
 ![S2_rollback_step1.png](screenshots/screenshots-S2/S2_rollback_step1.png)
+
+2. **ביצוע העדכון (בתוך טרנזקציה):** שינוי הסטטוס ל-'In-Prep' והעלאת רמת העדיפות.
 ![S2_rollback_step2.png](screenshots/screenshots-S2/S2_rollback_step2.png)
+
+3. **ביטול השינויים (ROLLBACK):** החזרת המשימה למצבה המקורי ובדיקה שהנתונים אכן חזרו לקדמותם.
 ![S2_rollback_step3.png](screenshots/screenshots-S2/S2_rollback_step3.png)
 
 ---
 
-## 🔄 COMMIT - Transaction Permanent
+## 🔄 Scenario 2: COMMIT - Transaction Permanent
+**הסבר:** תרחיש זה מדגים שמירת שינויים לצמיתות. כאן אנו מעדכנים פרטי שף (תחנה וסטטוס משמרת) ומבצעים `COMMIT` כדי לקבע את השינוי במסד הנתונים.
+
+1. **בדיקת המצב הראשוני:** הצגת נתוני השף לפני העדכון.
 ![S2_commit_step1.png](screenshots/screenshots-S2/S2_commit_step1.png)
+
+2. **ביצוע העדכון:** שינוי התחנה והגדרת השף כנמצא במשמרת.
 ![S2_commit_step2.png](screenshots/screenshots-S2/S2_commit_step2.png)
+
+3. **אישור השינויים (COMMIT):** שמירת השינויים בבסיס הנתונים ווידוא שהם נשמרו גם לאחר סיום הטרנזקציה.
 ![S2_commit_step3.png](screenshots/screenshots-S2/S2_commit_step3.png)
+
+---
+
+## 💾 Scenario 3: SAVEPOINT - Partial Rollback (Bonus)
+**הסבר:** שימוש ב-`SAVEPOINT` מאפשר לנו לבצע "נקודות שמירה" בתוך טרנזקציה ארוכה. בדוגמה זו, ביצענו מחיקה של הזמנות ישנות ועדכון שפים, אך בחרנו לבטל **רק** את עדכון השפים ולשמור את המחיקה.
+
+* **שלב 1:** יצירת נקודת שמירה ומחיקת הזמנות מבוטלות.
+* **שלב 2:** עדכון סטטוס שפים ויצירת נקודת שמירה נוספת.
+* **שלב 3:** ביצוע `ROLLBACK TO` לנקודה שלפני עדכון השפים - מה שמבטל רק את העדכון האחרון.
+* **שלב 4:** ביצוע `COMMIT` סופי ששומר רק את פעולת המחיקה.
 
 ---
 
