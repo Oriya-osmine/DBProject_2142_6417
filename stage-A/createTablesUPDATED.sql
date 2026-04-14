@@ -71,7 +71,7 @@ CREATE TABLE hygiene_inspection (
     CONSTRAINT fk_inspection_station      FOREIGN KEY (station_id)
                                               REFERENCES kitchen_station(station_id),
     CONSTRAINT fk_inspection_inspector    FOREIGN KEY (inspector_id)
-                                              REFERENCES chef(inspector_id),
+                                              REFERENCES chef(che_id),
     CONSTRAINT chk_inspection_score      CHECK (cleanliness_score BETWEEN 1.0 AND 10.0),
     CONSTRAINT chk_inspection_status     CHECK (status IN (
                                               'Perfect condition', 'All clean',
