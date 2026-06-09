@@ -451,11 +451,60 @@
 - **מבנה:** המבט שואב את שם העמדה ותיאורה (מטבלת המטבח), ומשלב אותם עם שם המנה וסטטוס הזמינות שלה (מטבלת השותף), דרך טבלת הקישור.
 - **יתרון עסקי:** צוות המטבח לא נדרש להכיר את מבנה הנתונים המורכב של המתכונים. הוא מקבל רשימת עבודה שקופה וברורה לכל עמדה.
 
+**רעיון עסקי:** זהו לוח עבודה תפעולי לרצפת הייצור. מנהל מטבח יכול לראות בזמן אמת איזו מנה שייכת לכל עמדה והאם היא זמינה, וכך לבצע איזון עומסים בין עמדות, לתעדף הכנה ולמנוע צווארי בקבוק בשעות עומס.
+
+**קוד השאילתה (מתוך `stage-C/Views.sql` + שליפת פלט):**
+
+```sql
+CREATE VIEW mappings.view_station_responsibilities AS
+SELECT 
+  ks.station_name,
+  ks.description,
+  mi.item_name,
+  mi.is_available
+FROM public.kitchen_station ks
+JOIN mappings.station_menu_item_link smil ON ks.station_id = smil.local_station_id
+JOIN partners.menu_item mi ON smil.menu_item_id = mi.menu_item_id;
+
+SELECT *
+FROM mappings.view_station_responsibilities
+LIMIT 10;
+```
+
+**פלט:**
+![view_station_responsibilities output](screenshots/screenshots-S3/view_station_responsibilities%2010.png)
+
 ### מבט 2: נקודת המבט של השף / מנהל התפריט (`view_partner_recipe_routing`)
 
 - **מטרה:** להראות למנהלי התפריט היכן כל מנה ומתכון מוכנים בפועל במטבח.
 - **מבנה:** מבט מורכב המשלב 4 טבלאות שונות (`menu_item`, `menu_category`, `recipe`, `kitchen_station`).
 - **החלטה טכנית:** נעשה שימוש ב-`LEFT JOIN` מול טבלת המתכונים (`recipe`), כדי להבטיח שגם מנות שטרם הוזן להן מתכון מלא במערכת ימשיכו להופיע בדוח התפעולי ולא יישמטו מהתצוגה. המבט מציג את הקטגוריה, שם המנה, הוראות ההכנה, ושם עמדת המטבח אליה המנה נותבה.
+
+**רעיון עסקי:** זהו מבט ניהולי-מוצרי עבור השף ומנהל התפריט. הוא מחבר בין עולם התוכן (קטגוריה, מנה, מחיר, הוראות מתכון) לבין הביצוע בפועל (באיזו עמדה מכינים את המנה), וכך תומך בהחלטות תמחור, איכות ותכנון כוח אדם.
+
+**קוד השאילתה (מתוך `stage-C/Views.sql` + שליפת פלט):**
+
+```sql
+CREATE VIEW mappings.view_partner_recipe_routing AS
+SELECT 
+  mc.category_name,
+  mi.item_name,
+  mi.price,
+  r.instructions AS recipe_instructions,
+  ks.station_name AS prepared_at_station
+FROM partners.menu_item mi
+JOIN partners.menu_category mc ON mi.category_id = mc.category_id
+LEFT JOIN partners.recipe r ON mi.menu_item_id = r.menu_item_id
+JOIN mappings.station_menu_item_link smil ON mi.menu_item_id = smil.menu_item_id
+JOIN public.kitchen_station ks ON smil.local_station_id = ks.station_id;
+
+SELECT *
+FROM mappings.view_partner_recipe_routing
+LIMIT 10;
+```
+
+**פלט:**
+![view_partner_recipe_routing output](screenshots/screenshots-S3/view_partner_recipe_routing%2010.png)
 
 ## 5. הנחיות הרצה (Execution Instructions)
 כדי לשחזר את סביבת האינטגרציה, יש להריץ את הסקריפטים בסדר הבא:
