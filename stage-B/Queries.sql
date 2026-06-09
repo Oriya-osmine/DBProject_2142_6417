@@ -366,20 +366,15 @@ ORDER BY
 -- Business Need: Automate order status progression when all assigned 
 -- tasks reach completion, triggering kitchen handoff and serving
 -- ────────────────────────────────────────────────────────────────────
-UPDATE kitchen_order ko
+UPDATE kitchen_order
 SET status = 'Ready'
-WHERE ko.kitchen_order_id IN (
-    SELECT DISTINCT ko2.kitchen_order_id
-    FROM kitchen_order ko2
-    WHERE ko2.status = 'In-Prep'
-    AND NOT EXISTS (
-        SELECT 1
-        FROM preparation_task pt
-        WHERE pt.kitchen_order_id = ko2.kitchen_order_id
-        AND pt.status NOT IN ('Ready', 'Completed')
-    )
-)
-AND ko.status = 'In-Prep';
+WHERE status = 'In-Prep'
+AND NOT EXISTS (
+    SELECT 1
+    FROM preparation_task pt
+    WHERE pt.kitchen_order_id = kitchen_order.kitchen_order_id
+    AND pt.status NOT IN ('Ready', 'Completed')
+);
 
 -- ────────────────────────────────────────────────────────────────────
 -- UPDATE 2: Update Chef Current Station Assignment
