@@ -9,53 +9,48 @@
 -- transfer_chef_tasks(p_old_chef_id INT, p_new_chef_id INT)
 -- Uses an explicit cursor, FETCH loop, exception handling, and DML UPDATE.
 -- -------------------------------------------------------------
-DROP PROCEDURE IF EXISTS public.transfer_chef_tasks(INT, INT);
-
-CREATE OR REPLACE PROCEDURE public.transfer_chef_tasks(
-    p_old_chef_id INT,
-    p_new_chef_id INT
-)
+CREATE OR REPLACE PROCEDURE public.transfer_chef_tasks(p_old_chef_id INT, p_new_chef_id INT)
 LANGUAGE plpgsql
 AS $$
 DECLARE
-    v_new_chef_on_shift BOOLEAN;
-    v_task_cursor CURSOR FOR
-        SELECT *
-        FROM public.preparation_task
-        WHERE chef_id = p_old_chef_id
-          AND status = 'Pending'
-        ORDER BY task_id;
-    v_task_row public.preparation_task%ROWTYPE;
+    v_task_record RECORD;
+    -- Define the explicit cursor
+    v_task_cursor CURSOR FOR 
+        SELECT task_id 
+        FROM public.preparation_task 
+        WHERE chef_id = p_old_chef_id AND status = 'Open';
+    v_new_chef_exists BOOLEAN;
 BEGIN
-    SELECT is_on_shift
-    INTO v_new_chef_on_shift
-    FROM public.chef
-    WHERE chef_id = p_new_chef_id;
-
-    IF NOT FOUND THEN
-        RAISE EXCEPTION 'Chef % does not exist.', p_new_chef_id;
-    ELSIF v_new_chef_on_shift IS DISTINCT FROM TRUE THEN
-        RAISE EXCEPTION 'Chef % must be on shift before receiving tasks.', p_new_chef_id;
+    -- Check if the new chef exists
+    SELECT EXISTS(SELECT 1 FROM public.chef WHERE chef_id = p_new_chef_id) INTO v_new_chef_exists;
+    
+    IF NOT v_new_chef_exists THEN
+        RAISE EXCEPTION 'Chef ID % does not exist.', p_new_chef_id;
     END IF;
 
+    -- Open the cursor
     OPEN v_task_cursor;
+    
     LOOP
-        FETCH v_task_cursor INTO v_task_row;
-        EXIT WHEN NOT FOUND;
-
+        FETCH v_task_cursor INTO v_task_record;
+        EXIT WHEN NOT FOUND; -- Exit when no more rows are found
+        
+        -- Update task to the new chef and change status
         UPDATE public.preparation_task
         SET chef_id = p_new_chef_id,
             status = 'In-Prep'
-        WHERE task_id = v_task_row.task_id;
+        WHERE task_id = v_task_record.task_id;
     END LOOP;
+    
+    -- Explicitly close the cursor on success
     CLOSE v_task_cursor;
 
+    RAISE NOTICE 'Tasks transferred successfully.';
+    
 EXCEPTION
     WHEN OTHERS THEN
-        IF v_task_cursor%ISOPEN THEN
-            CLOSE v_task_cursor;
-        END IF;
-        RAISE;
+        -- ISOPEN removed. The system automatically closes the cursor on error.
+        RAISE EXCEPTION 'An error occurred: %', SQLERRM;
 END;
 $$;
 
