@@ -39,6 +39,7 @@ services:
       - ./servers.json:/pgadmin4/servers.json
       - ./stage-A:/var/lib/pgadmin/storage/dvirdiei_gmail.com/stage-A 
       - ./stage-C:/var/lib/pgadmin/storage/dvirdiei_gmail.com/stage-C
+      - ./stage-C:/var/lib/pgadmin/storage/dvirdiei_gmail.com/stage-D
     depends_on:
       - db
     networks:

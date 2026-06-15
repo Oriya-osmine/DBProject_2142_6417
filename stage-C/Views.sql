@@ -13,7 +13,6 @@ JOIN partners.menu_item mi ON smil.menu_item_id = mi.menu_item_id; -- Menu item 
 
 
 
-DROP VIEW IF EXISTS mappings.view_partner_recipe_routing;
 
 -- View from the Partner's perspective:
 -- Shows menu items, categories, recipe instructions, and the local kitchen station assigned to prep them.
