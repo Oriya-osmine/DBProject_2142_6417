@@ -14,26 +14,33 @@ LANGUAGE plpgsql
 AS $$
 DECLARE
     v_task_record RECORD;
-    -- Define the explicit cursor
     v_task_cursor CURSOR FOR 
         SELECT task_id 
         FROM public.preparation_task 
-        WHERE chef_id = p_old_chef_id AND status = 'Open';
+        WHERE chef_id = p_old_chef_id AND status = 'Pending';
+        
+    v_old_chef_exists BOOLEAN;
     v_new_chef_exists BOOLEAN;
 BEGIN
-    -- Check if the new chef exists
+
+    SELECT EXISTS(SELECT 1 FROM public.chef WHERE chef_id = p_old_chef_id) INTO v_old_chef_exists;
+    
+    IF NOT v_old_chef_exists THEN
+        RAISE EXCEPTION 'Source Chef ID % does not exist in the system. Cannot transfer tasks.', p_old_chef_id;
+    END IF;
+
     SELECT EXISTS(SELECT 1 FROM public.chef WHERE chef_id = p_new_chef_id) INTO v_new_chef_exists;
     
     IF NOT v_new_chef_exists THEN
-        RAISE EXCEPTION 'Chef ID % does not exist.', p_new_chef_id;
+        RAISE EXCEPTION 'Target Chef ID % does not exist in the system.', p_new_chef_id;
     END IF;
 
-    -- Open the cursor
+    -- Open the cursor and begin the transfer
     OPEN v_task_cursor;
     
     LOOP
         FETCH v_task_cursor INTO v_task_record;
-        EXIT WHEN NOT FOUND; -- Exit when no more rows are found
+        EXIT WHEN NOT FOUND; 
         
         -- Update task to the new chef and change status
         UPDATE public.preparation_task
@@ -49,7 +56,6 @@ BEGIN
     
 EXCEPTION
     WHEN OTHERS THEN
-        -- ISOPEN removed. The system automatically closes the cursor on error.
         RAISE EXCEPTION 'An error occurred: %', SQLERRM;
 END;
 $$;

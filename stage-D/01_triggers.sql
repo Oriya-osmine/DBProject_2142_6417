@@ -4,6 +4,15 @@
 -- and hygiene-driven station deactivation.
 -- =============================================================
 
+CREATE SCHEMA IF NOT EXISTS partners;
+
+CREATE TABLE IF NOT EXISTS partners.menu_change_log (
+    log_id SERIAL PRIMARY KEY,
+    change_description TEXT,
+    menu_item_id INT,
+    change_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 -- -------------------------------------------------------------
 -- Trigger 1: Menu Version Control
 -- On UPDATE of partners.menu_item, compare OLD and NEW values for
