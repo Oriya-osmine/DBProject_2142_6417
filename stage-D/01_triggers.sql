@@ -19,6 +19,9 @@ CREATE TABLE IF NOT EXISTS partners.menu_change_log (
 -- price and is_available. If anything changed, write a log row.
 -- Demonstrates: OLD/NEW records, branching, and DML INSERT.
 -- -------------------------------------------------------------
+-- FOR EACH ROW is dumb, we should have done on UPDATE
+
+
 DROP TRIGGER IF EXISTS trg_menu_version_control ON partners.menu_item;
 DROP FUNCTION IF EXISTS partners.fn_menu_version_control();
 
@@ -74,6 +77,7 @@ EXECUTE FUNCTION partners.fn_menu_version_control();
 -- score is below 6.0, deactivate the station.
 -- Demonstrates: branching and DML UPDATE.
 -- -------------------------------------------------------------
+-- FOR EACH ROW is dumb, we should have done on UPDATE
 DROP TRIGGER IF EXISTS trg_hygiene_alert ON public.hygiene_inspection;
 DROP FUNCTION IF EXISTS public.fn_hygiene_alert();
 

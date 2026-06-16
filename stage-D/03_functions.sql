@@ -1,14 +1,15 @@
 -- =============================================================
--- STAGE D - FUNCTIONS
+-- STAGE D - FUNCTIONS (OPTIMIZED)
 -- Business goal: demonstrate reporting logic using ref cursors
--- and aggregate workload calculation.
+-- and highly efficient set-based aggregate calculations.
 -- =============================================================
 
 -- -------------------------------------------------------------
 -- Function 1: Station Readiness Report
 -- get_active_station_menu(p_station_id INT)
 -- Returns a refcursor with all available menu items for a station.
--- Demonstrates: returning a refcursor and query joins.
+-- Optimization: Added early validation. The refcursor itself is 
+-- already highly efficient for streaming data to applications!
 -- -------------------------------------------------------------
 DROP FUNCTION IF EXISTS public.get_active_station_menu(INT);
 
@@ -18,9 +19,20 @@ LANGUAGE plpgsql
 AS $$
 DECLARE
     v_cursor refcursor;
+    v_station_exists BOOLEAN;
 BEGIN
+    -- 1. Validate Input (Fails fast if the station doesn't exist)
+    SELECT EXISTS(SELECT 1 FROM public.kitchen_station WHERE station_id = p_station_id) INTO v_station_exists;
+    
+    IF NOT v_station_exists THEN
+        RAISE EXCEPTION 'Station ID % does not exist.', p_station_id;
+    END IF;
+
+    -- 2. Setup dynamic cursor name
     v_cursor := format('station_menu_cursor_%s', p_station_id);
 
+    -- 3. Open Cursor (This is efficient because it doesn't load 
+    -- all data into memory at once; it creates a live stream).
     OPEN v_cursor FOR
         SELECT
             ks.station_id,
@@ -40,14 +52,18 @@ BEGIN
         ORDER BY mi.item_name;
 
     RETURN v_cursor;
+    
+EXCEPTION
+    WHEN OTHERS THEN
+        RAISE EXCEPTION 'Failed to generate station menu: %', SQLERRM;
 END;
 $$;
 
 -- -------------------------------------------------------------
 -- Function 2: Chef Workload Calculator
 -- calculate_chef_workload(p_chef_id INT)
--- Returns the sum of priority_level for all pending tasks.
--- Demonstrates: LOOP, exception handling, and validation logic.
+-- Optimization: Completely removes the slow FOR...LOOP (RBAR) 
+-- and replaces it with a blazing fast set-based SUM aggregate.
 -- -------------------------------------------------------------
 DROP FUNCTION IF EXISTS public.calculate_chef_workload(INT);
 
@@ -57,31 +73,28 @@ LANGUAGE plpgsql
 AS $$
 DECLARE
     v_workload INTEGER := 0;
-    v_task_row RECORD;
     v_chef_exists BOOLEAN;
 BEGIN
-    SELECT TRUE
-    INTO v_chef_exists
-    FROM public.chef
-    WHERE chef_id = p_chef_id;
-
-    IF NOT FOUND THEN
-        RAISE EXCEPTION 'Chef % was not found in public.chef.', p_chef_id;
+    -- 1. Validate Input
+    SELECT EXISTS(SELECT 1 FROM public.chef WHERE chef_id = p_chef_id) INTO v_chef_exists;
+    
+    IF NOT v_chef_exists THEN
+        RAISE EXCEPTION 'Chef ID % was not found in public.chef.', p_chef_id;
     END IF;
 
-    FOR v_task_row IN
-        SELECT priority_level
-        FROM public.preparation_task
-        WHERE chef_id = p_chef_id
-          AND status = 'Pending'
-    LOOP
-        v_workload := v_workload + COALESCE(v_task_row.priority_level, 0);
-    END LOOP;
+    -- 2. Set-Based Aggregate Calculation
+    -- Instead of pulling rows into memory one by one, we tell the 
+    -- database engine to do the math instantly at the disk level.
+    SELECT COALESCE(SUM(priority_level), 0)
+    INTO v_workload
+    FROM public.preparation_task
+    WHERE chef_id = p_chef_id
+      AND status = 'Pending';
 
     RETURN v_workload;
 
 EXCEPTION
     WHEN OTHERS THEN
-        RAISE;
+        RAISE EXCEPTION 'Workload calculation failed: %', SQLERRM;
 END;
 $$;
