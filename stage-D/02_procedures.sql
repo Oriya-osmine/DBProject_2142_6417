@@ -7,7 +7,6 @@
 -- -------------------------------------------------------------
 -- Procedure 1: Shift Handover
 -- transfer_chef_tasks(p_old_chef_id INT, p_new_chef_id INT)
--- Replaces the slow RBAR (Row-By-Agonizing-Row) cursor loop 
 -- -------------------------------------------------------------
 CREATE OR REPLACE PROCEDURE public.transfer_chef_tasks(p_old_chef_id INT, p_new_chef_id INT)
 LANGUAGE plpgsql
@@ -52,6 +51,30 @@ $$;
 -- Uses TABLESAMPLE instead of ORDER BY random() to avoid sorting
 -- the entire table, making it highly scalable for massive databases.
 -- -------------------------------------------------------------
+-- ====================================================================
+-- REAL-WORLD ARCHITECTURE NOTE (PRODUCTION INTEGRATION)
+-- ====================================================================
+-- In a full enterprise production system, this dispatch procedure would 
+-- directly query 'mappings.view_partner_recipe_routing' instead of 
+-- generating generic placeholder tasks or using a random chef sample.
+--
+-- How it would look in production code:
+--
+--  -- 1. Fetch the physical station and recipe for the ordered menu item
+--  SELECT prepared_at_station, recipe_instructions 
+--  INTO v_target_station, v_recipe_text
+--  FROM mappings.view_partner_recipe_routing
+--  WHERE item_name = v_ordered_item_name;
+--
+--  -- 2. Target only an on-shift chef assigned to that specific station
+--  SELECT chef_id INTO v_chef_id FROM public.chef 
+--  WHERE current_station_id = v_target_station AND is_on_shift = TRUE 
+--  LIMIT 1;
+--
+--  -- 3. Insert the exact partner recipe steps into the task ticket
+--  INSERT INTO public.preparation_task (kitchen_order_id, chef_id, task_description)
+--  VALUES (p_order_id, v_chef_id, v_recipe_text);
+-- ====================================================================
 DROP PROCEDURE IF EXISTS public.dispatch_kitchen_order(INT);
 
 CREATE OR REPLACE PROCEDURE public.dispatch_kitchen_order(p_order_id INT)
@@ -63,7 +86,18 @@ DECLARE
     v_task_description TEXT;
     v_priority INT;
     v_task_index INT := 0;
+    v_current_status VARCHAR(50);
 BEGIN
+
+    SELECT status INTO v_current_status 
+    FROM public.kitchen_order 
+    WHERE kitchen_order_id = p_order_id;
+
+    IF v_current_status IS NULL THEN
+        RAISE EXCEPTION 'Cannot dispatch: Order ID % does not exist.', p_order_id;
+    ELSIF v_current_status != 'Pending' THEN
+        RAISE EXCEPTION 'Cannot dispatch: Order % is already %.', p_order_id, v_current_status;
+    END IF;
     -- Using TABLESAMPLE BERNOULLI(50) grabs a random ~50% of the table without sorting.
     -- (We use BERNOULLI instead of SYSTEM because SYSTEM doesn't work well on tiny tables).
     FOR v_station_record IN
@@ -126,5 +160,9 @@ BEGIN
     IF v_task_index = 0 THEN
         RAISE EXCEPTION 'No active stations were available to dispatch order %.', p_order_id;
     END IF;
+
+    UPDATE public.kitchen_order 
+    SET status = 'In-Prep'
+    WHERE kitchen_order_id = p_order_id;
 END;
 $$;
