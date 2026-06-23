@@ -436,16 +436,27 @@ class CrudFrame(ctk.CTkFrame):
     # ==========================================
     # PREPARATION TASKS CRUD
     # ==========================================
+# ==========================================
+    # PREPARATION TASKS CRUD (With Pagination)
+    # ==========================================
     def setup_tasks_crud(self):
         self.task_logic = BaseCrudTab(self.tab_tasks)
+        self.task_offset = 0 
         
         toggle_btn = ctk.CTkButton(self.tab_tasks, text="🔍 Filter & Sort", width=120, command=lambda: self.toggle_panel(self.tk_filter_panel))
         toggle_btn.pack(anchor="w", pady=(0, 5))
 
-        col_map = {"Task ID": "pt.task_id", "Order ID": "pt.kitchen_order_id", "Chef Name": "c.first_name", "Status": "pt.status", "Priority": "pt.priority_level"}
+        col_map = {
+            "Task ID": "pt.task_id", 
+            "Order ID": "pt.kitchen_order_id", 
+            "Chef ID": "pt.chef_id", 
+            "Chef Name": "c.first_name", 
+            "Status": "pt.status", 
+            "Priority": "pt.priority_level"
+        }
         self.tk_filter_panel = FilterSortPanel(self.tab_tasks, col_map, self.load_tasks)
 
-        self.task_table = shared.GenericDataTable(self.tab_tasks, columns=("Task ID", "Order ID", "Chef Name", "Description", "Status", "Priority"))
+        self.task_table = shared.GenericDataTable(self.tab_tasks, columns=("Task ID", "Order ID", "Chef ID", "Chef Name", "Description", "Status", "Priority"))
         self.task_table.pack(pady=5, fill="x")
         
         f = ctk.CTkFrame(self.tab_tasks)
@@ -474,56 +485,134 @@ class CrudFrame(ctk.CTkFrame):
 
         bf = ctk.CTkFrame(self.tab_tasks, fg_color="transparent")
         bf.pack(pady=10)
+        
+        # Action Buttons
         ctk.CTkButton(bf, text="Insert", fg_color="green", command=self.insert_task).pack(side="left", padx=5)
         ctk.CTkButton(bf, text="Update", fg_color="#b8860b", command=self.update_task).pack(side="left", padx=5)
         ctk.CTkButton(bf, text="Delete", fg_color="red", command=self.delete_task).pack(side="left", padx=5)
         ctk.CTkButton(bf, text="Refresh", command=self.load_tasks).pack(side="left", padx=5)
+        
+        # Pagination Buttons
+        self.btn_prev = ctk.CTkButton(bf, text="< Prev 100", fg_color="#1f538d", command=self.prev_100_tasks)
+        self.btn_prev.pack(side="left", padx=15)
+        self.btn_next = ctk.CTkButton(bf, text="Next 100 >", fg_color="#1f538d", command=self.next_100_tasks)
+        self.btn_next.pack(side="left", padx=5)
 
-    def load_tasks(self, where_clause="", sort_clause="", params=()):
+    def next_100_tasks(self):
+        self.task_offset += 100
+        self.load_tasks(use_offset=True)
+
+    def prev_100_tasks(self):
+        self.task_offset = max(0, self.task_offset - 100)
+        self.load_tasks(use_offset=True)
+
+    def load_tasks(self, where_clause="", sort_clause="", params=(), use_offset=False):
+        if not use_offset:
+            self.task_offset = 0 
+            
         try:
             self.tk_chef_map = shared.fetch_fk_mapping("SELECT first_name || ' ' || last_name, chef_id FROM public.chef")
             self.tk_chef_cb.configure(values=["None"] + list(self.tk_chef_map.keys()))
         except: pass
+        
         base_query = """
-            SELECT pt.task_id, pt.kitchen_order_id, COALESCE(c.first_name || ' ' || c.last_name, 'Unassigned'), pt.task_description, pt.status, pt.priority_level
+            SELECT pt.task_id, pt.kitchen_order_id, pt.chef_id, COALESCE(c.first_name || ' ' || c.last_name, 'Unassigned'), pt.task_description, pt.status, pt.priority_level
             FROM public.preparation_task pt LEFT JOIN public.chef c ON pt.chef_id = c.chef_id
         """
         where = f" WHERE {where_clause}" if where_clause else ""
-        sort = sort_clause if sort_clause else " ORDER BY pt.task_id DESC LIMIT 100"
-        self.task_table.populate_data(base_query + where + sort, params)
+        sort = sort_clause if sort_clause else " ORDER BY pt.task_id DESC"
+        
+        pagination = f" LIMIT 100 OFFSET {self.task_offset}"
+        
+        final_query = base_query + where + sort + pagination
+        self.task_table.populate_data(final_query, params)
 
     def fetch_task(self):
-        t_id = self.tk_id_entry.get()
-        if not t_id: return
+        task_id = self.tk_id_entry.get().strip()
+        if not task_id:
+            messagebox.showerror("Error", "Please enter a Task ID to load")
+            return
+            
+        query = "SELECT kitchen_order_id, task_description, status, priority_level, chef_id FROM public.preparation_task WHERE task_id = %s"
         try:
-            conn = shared.get_db_connection(); cur = conn.cursor()
-            cur.execute("""
-                SELECT pt.kitchen_order_id, pt.task_description, pt.status, pt.priority_level, c.first_name || ' ' || c.last_name 
-                FROM public.preparation_task pt LEFT JOIN public.chef c ON pt.chef_id = c.chef_id
-                WHERE pt.task_id = %s
-            """, (t_id,))
+            conn = shared.get_db_connection()
+            cur = conn.cursor()
+            cur.execute(query, (task_id,))
             row = cur.fetchone()
+            cur.close()
+            conn.close()
+            
             if row:
-                self.tk_order_id.delete(0, 'end'); self.tk_order_id.insert(0, str(row[0]))
-                self.tk_desc.delete(0, 'end'); self.tk_desc.insert(0, row[1])
-                self.tk_status_cb.set(row[2])
-                self.tk_priority.delete(0, 'end'); self.tk_priority.insert(0, str(row[3]))
-                self.tk_chef_cb.set(row[4] if row[4] else "None")
-        except Exception as e: messagebox.showerror("Error", str(e))
+                self.tk_order_id.delete(0, 'end')
+                self.tk_order_id.insert(0, str(row[0]) if row[0] else "")
+                
+                self.tk_desc.delete(0, 'end')
+                self.tk_desc.insert(0, str(row[1]) if row[1] else "")
+                
+                self.tk_status_cb.set(str(row[2]) if row[2] else "Pending")
+                
+                self.tk_priority.delete(0, 'end')
+                self.tk_priority.insert(0, str(row[3]) if row[3] else "")
+                
+                chef_id = row[4]
+                if chef_id:
+                    for name, cid in self.tk_chef_map.items():
+                        if cid == chef_id:
+                            self.tk_chef_cb.set(name)
+                            break
+                else:
+                    self.tk_chef_cb.set("None")
+                    
+            else:
+                messagebox.showerror("Not Found", "Task ID not found")
+        except Exception as e:
+            messagebox.showerror("Database Error", str(e))
 
     def insert_task(self):
-        c_id = self.tk_chef_map.get(self.tk_chef_cb.get())
-        self.task_logic.exec_dml("INSERT INTO public.preparation_task (kitchen_order_id, chef_id, task_description, status, priority_level) VALUES (%s, %s, %s, %s, %s)", 
-                                 (self.tk_order_id.get(), c_id, self.tk_desc.get(), self.tk_status_cb.get(), self.tk_priority.get()), "Inserted", self.load_tasks)
+        order_id = self.tk_order_id.get() or None
+        desc = self.tk_desc.get() or None
+        status = self.tk_status_cb.get() or None
+        priority = self.tk_priority.get() or None
+        chef_name = self.tk_chef_cb.get()
+        chef_id = self.tk_chef_map.get(chef_name) if chef_name != "None" else None
+
+        query = """
+            INSERT INTO public.preparation_task (kitchen_order_id, task_description, status, priority_level, chef_id) 
+            VALUES (%s, %s, %s, %s, %s)
+        """
+        self.task_logic.execute_query(query, (order_id, desc, status, priority, chef_id))
+        self.load_tasks()
 
     def update_task(self):
-        c_id = self.tk_chef_map.get(self.tk_chef_cb.get())
-        self.task_logic.exec_dml("UPDATE public.preparation_task SET kitchen_order_id=%s, chef_id=%s, task_description=%s, status=%s, priority_level=%s WHERE task_id=%s", 
-                                 (self.tk_order_id.get(), c_id, self.tk_desc.get(), self.tk_status_cb.get(), self.tk_priority.get(), self.tk_id_entry.get()), "Updated", self.load_tasks)
+        task_id = self.tk_id_entry.get().strip()
+        if not task_id:
+            messagebox.showerror("Error", "Please enter Task ID to update")
+            return
+            
+        order_id = self.tk_order_id.get() or None
+        desc = self.tk_desc.get() or None
+        status = self.tk_status_cb.get() or None
+        priority = self.tk_priority.get() or None
+        chef_name = self.tk_chef_cb.get()
+        chef_id = self.tk_chef_map.get(chef_name) if chef_name != "None" else None
+
+        query = """
+            UPDATE public.preparation_task 
+            SET kitchen_order_id=%s, task_description=%s, status=%s, priority_level=%s, chef_id=%s 
+            WHERE task_id=%s
+        """
+        self.task_logic.execute_query(query, (order_id, desc, status, priority, chef_id, task_id))
+        self.load_tasks()
 
     def delete_task(self):
-        if self.task_logic.confirm_delete():
-            self.task_logic.exec_dml("DELETE FROM public.preparation_task WHERE task_id=%s", (self.tk_id_entry.get(),), "Deleted", self.load_tasks)
+        task_id = self.tk_id_entry.get().strip()
+        if not task_id:
+            messagebox.showerror("Error", "Please enter Task ID to delete")
+            return
+            
+        query = "DELETE FROM public.preparation_task WHERE task_id=%s"
+        self.task_logic.execute_query(query, (task_id,))
+        self.load_tasks()
 
 
     # ==========================================
@@ -610,11 +699,11 @@ class CrudFrame(ctk.CTkFrame):
 
     def insert_hygiene(self):
         self.hygiene_logic.exec_dml("INSERT INTO public.hygiene_inspection (station_id, inspector_id, cleanliness_score, status) VALUES (%s, %s, %s, %s)", 
-                                 (self.hyg_st_map.get(self.hyg_station_cb.get()), self.hyg_c_map.get(self.hyg_inspector_cb.get()), self.hyg_score.get(), self.hyg_status_cb.get()), "Inserted", self.load_hygiene)
+                                (self.hyg_st_map.get(self.hyg_station_cb.get()), self.hyg_c_map.get(self.hyg_inspector_cb.get()), self.hyg_score.get(), self.hyg_status_cb.get()), "Inserted", self.load_hygiene)
 
     def update_hygiene(self):
         self.hygiene_logic.exec_dml("UPDATE public.hygiene_inspection SET station_id=%s, inspector_id=%s, cleanliness_score=%s, status=%s WHERE inspection_id=%s", 
-                                 (self.hyg_st_map.get(self.hyg_station_cb.get()), self.hyg_c_map.get(self.hyg_inspector_cb.get()), self.hyg_score.get(), self.hyg_status_cb.get(), self.hyg_id_entry.get()), "Updated", self.load_hygiene)
+                                (self.hyg_st_map.get(self.hyg_station_cb.get()), self.hyg_c_map.get(self.hyg_inspector_cb.get()), self.hyg_score.get(), self.hyg_status_cb.get(), self.hyg_id_entry.get()), "Updated", self.load_hygiene)
 
     def delete_hygiene(self):
         if self.hygiene_logic.confirm_delete():
@@ -705,11 +794,11 @@ class CrudFrame(ctk.CTkFrame):
 
     def insert_log(self):
         self.log_logic.exec_dml("INSERT INTO public.food_prep_log (chef_id, menu_item_id, preparation_time, notes) VALUES (%s, %s, %s, %s)", 
-                                 (self.lg_c_map.get(self.lg_chef_cb.get()), self.lg_m_map.get(self.lg_menu_cb.get()), self.lg_time.get(), self.lg_notes.get()), "Inserted", self.load_logs)
+                                (self.lg_c_map.get(self.lg_chef_cb.get()), self.lg_m_map.get(self.lg_menu_cb.get()), self.lg_time.get(), self.lg_notes.get()), "Inserted", self.load_logs)
 
     def update_log(self):
         self.log_logic.exec_dml("UPDATE public.food_prep_log SET chef_id=%s, menu_item_id=%s, preparation_time=%s, notes=%s WHERE log_id=%s", 
-                                 (self.lg_c_map.get(self.lg_chef_cb.get()), self.lg_m_map.get(self.lg_menu_cb.get()), self.lg_time.get(), self.lg_notes.get(), self.lg_id_entry.get()), "Updated", self.load_logs)
+                                (self.lg_c_map.get(self.lg_chef_cb.get()), self.lg_m_map.get(self.lg_menu_cb.get()), self.lg_time.get(), self.lg_notes.get(), self.lg_id_entry.get()), "Updated", self.load_logs)
 
     def delete_log(self):
         if self.log_logic.confirm_delete():
