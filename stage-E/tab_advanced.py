@@ -10,18 +10,22 @@ class AdvancedFrame(ctk.CTkFrame):
         top_bar.pack(fill="x", padx=10, pady=10)
         ctk.CTkLabel(top_bar, text="Functions & Procedures (Stage D)", font=ctk.CTkFont(size=20, weight="bold")).pack(side="left", padx=10)
 
-        self.adv_table = shared.GenericDataTable(self)
-        self.adv_table.pack(pady=10, fill="x", padx=20)
-
+        # 1. Pack the actions frame at the BOTTOM first, without vertical expansion
         actions_frame = ctk.CTkFrame(self, fg_color="transparent")
-        actions_frame.pack(fill="both", expand=True, padx=10)
+        actions_frame.pack(side="bottom", fill="x", padx=10, pady=20)
 
+        # 2. Pack the table in the middle and tell it to EXPAND and fill all remaining space
+        self.adv_table = shared.GenericDataTable(self)
+        self.adv_table.pack(side="top", fill="both", expand=True, padx=20, pady=(0, 10))
+
+        # --- VIEWS SECTION ---
         view_f = ctk.CTkFrame(actions_frame)
         view_f.pack(side="left", fill="both", expand=True, padx=10)
         ctk.CTkLabel(view_f, text="Views (Stage C)", font=("Arial", 16, "bold")).pack(pady=10)
         ctk.CTkButton(view_f, text="1. Station Responsibilities", command=self.load_view_stations).pack(pady=5)
         ctk.CTkButton(view_f, text="2. Partner Recipe Routing", command=self.load_view_partners).pack(pady=5)
 
+        # --- FUNCTIONS SECTION ---
         func_f = ctk.CTkFrame(actions_frame)
         func_f.pack(side="left", fill="both", expand=True, padx=10)
         ctk.CTkLabel(func_f, text="Functions (Stage D)", font=("Arial", 16, "bold")).pack(pady=10)
@@ -38,6 +42,7 @@ class AdvancedFrame(ctk.CTkFrame):
         self.menu_station_id.pack(side="left", padx=5)
         ctk.CTkButton(f2, text="Get Station Menu", command=self.run_func_station_menu, width=120).pack(side="left")
 
+        # --- PROCEDURES SECTION ---
         proc_f = ctk.CTkFrame(actions_frame)
         proc_f.pack(side="left", fill="both", expand=True, padx=10)
         ctk.CTkLabel(proc_f, text="Procedures (Stage D)", font=("Arial", 16, "bold")).pack(pady=10)

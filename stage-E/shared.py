@@ -5,9 +5,9 @@ from decimal import Decimal
 
 # Global Database Connection Parameters
 DB_CONFIG = {
-    "dbname": "your_db_name",
-    "user": "your_user",
-    "password": "your_password",
+    "dbname": "myDatabase",
+    "user": "myUser",
+    "password": "myPgAdminPassword",
     "host": "localhost"
 }
 
@@ -43,9 +43,23 @@ class GenericDataTable(ctk.CTkFrame):
         
         style = ttk.Style()
         style.theme_use("default")
-        style.configure("Treeview", background="#2a2d2e", foreground="white", rowheight=25, fieldbackground="#2a2d2e", borderwidth=0)
+        
+        # UI Styling (Enlarged Text & Rows)
+        style.configure("Treeview", 
+                        background="#2a2d2e", 
+                        foreground="white", 
+                        rowheight=35, # Enlarged row height
+                        fieldbackground="#2a2d2e", 
+                        borderwidth=0,
+                        font=("Arial", 14)) # Enlarged table data font
+        
         style.map('Treeview', background=[('selected', '#1f538d')])
-        style.configure("Treeview.Heading", background="#1f538d", foreground="white", relief="flat")
+        
+        style.configure("Treeview.Heading", 
+                        background="#1f538d", 
+                        foreground="white", 
+                        relief="flat",
+                        font=("Arial", 15, "bold")) # Enlarged table heading font
 
         self.tree = ttk.Treeview(self, show='headings', height=10)
         self.scrollbar = ttk.Scrollbar(self, orient="vertical", command=self.tree.yview)
@@ -57,6 +71,7 @@ class GenericDataTable(ctk.CTkFrame):
         if columns:
             self.set_columns(columns)
 
+    # --- MUST HAVE METHODS (These were likely missing) ---
     def set_columns(self, columns):
         self.tree.config(columns=columns)
         for col in columns:
