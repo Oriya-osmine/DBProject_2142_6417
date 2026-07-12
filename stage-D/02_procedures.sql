@@ -109,6 +109,7 @@ BEGIN
         v_task_index := v_task_index + 1;
 
         -- Find a chef using TABLESAMPLE
+        -- can also use random but I wasn't sure what to do
         SELECT c.chef_id
         INTO v_chef_id
         FROM public.chef c TABLESAMPLE BERNOULLI (50)

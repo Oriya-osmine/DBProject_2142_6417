@@ -83,6 +83,7 @@ class BaseCrudTab(ctk.CTkFrame):
     def confirm_delete(self):
         return messagebox.askyesno("Confirm Deletion", "Are you sure you want to delete this record? This action cannot be undone.")
 
+
 class CrudFrame(ctk.CTkFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, fg_color="transparent", **kwargs)
@@ -126,18 +127,18 @@ class CrudFrame(ctk.CTkFrame):
         else:
             panel.pack(fill="x", pady=(0, 10), before=panel.master.winfo_children()[1])
 
+
     # ==========================================
     # CHEFS CRUD
     # ==========================================
     def setup_chefs_crud(self):
         self.chef_tab_logic = BaseCrudTab(self.tab_chefs)
+        self.chef_offset = 0
         
-        # Filter Toggle Button
-        toggle_btn = ctk.CTkButton(self.tab_chefs, text="🔍 Filter & Sort", width=120, 
+        toggle_btn = ctk.CTkButton(self.tab_chefs, text="剥 Filter & Sort", width=120, 
                                    command=lambda: self.toggle_panel(self.chef_filter_panel))
         toggle_btn.pack(anchor="w", pady=(0, 5))
 
-        # Filter Panel (Hidden by default)
         col_map = {"Chef ID": "c.chef_id", "First Name": "c.first_name", "Last Name": "c.last_name", 
                    "Specialty": "c.specialization", "Station Name": "ks.station_name", "On Shift": "c.is_on_shift"}
         self.chef_filter_panel = FilterSortPanel(self.tab_chefs, col_map, self.load_chefs)
@@ -171,8 +172,23 @@ class CrudFrame(ctk.CTkFrame):
         ctk.CTkButton(btn_frame, text="Update", fg_color="#b8860b", command=self.update_chef).pack(side="left", padx=5)
         ctk.CTkButton(btn_frame, text="Delete", fg_color="red", command=self.delete_chef).pack(side="left", padx=5)
         ctk.CTkButton(btn_frame, text="Refresh", command=self.load_chefs).pack(side="left", padx=5)
+        
+        # Pagination Buttons
+        ctk.CTkButton(btn_frame, text="< Prev 100", fg_color="#1f538d", command=self.prev_100_chefs).pack(side="left", padx=15)
+        ctk.CTkButton(btn_frame, text="Next 100 >", fg_color="#1f538d", command=self.next_100_chefs).pack(side="left", padx=5)
 
-    def load_chefs(self, where_clause="", sort_clause="", params=()):
+    def next_100_chefs(self):
+        self.chef_offset += 100
+        self.load_chefs(use_offset=True)
+
+    def prev_100_chefs(self):
+        self.chef_offset = max(0, self.chef_offset - 100)
+        self.load_chefs(use_offset=True)
+
+    def load_chefs(self, where_clause="", sort_clause="", params=(), use_offset=False):
+        if not use_offset:
+            self.chef_offset = 0
+            
         try:
             self.station_map = shared.fetch_fk_mapping("SELECT station_name, station_id FROM public.kitchen_station")
             self.c_station_cb.configure(values=["None"] + list(self.station_map.keys()))
@@ -186,7 +202,9 @@ class CrudFrame(ctk.CTkFrame):
         """
         where = f" WHERE {where_clause}" if where_clause else ""
         sort = sort_clause if sort_clause else " ORDER BY c.chef_id ASC"
-        self.chefs_table.populate_data(base_query + where + sort, params)
+        pagination = f" LIMIT 100 OFFSET {self.chef_offset}"
+        
+        self.chefs_table.populate_data(base_query + where + sort + pagination, params)
 
     def fetch_chef(self):
         chef_id = self.chef_id_entry.get()
@@ -227,8 +245,9 @@ class CrudFrame(ctk.CTkFrame):
     # ==========================================
     def setup_stations_crud(self):
         self.st_tab_logic = BaseCrudTab(self.tab_stations)
+        self.st_offset = 0
         
-        toggle_btn = ctk.CTkButton(self.tab_stations, text="🔍 Filter & Sort", width=120, command=lambda: self.toggle_panel(self.st_filter_panel))
+        toggle_btn = ctk.CTkButton(self.tab_stations, text="剥 Filter & Sort", width=120, command=lambda: self.toggle_panel(self.st_filter_panel))
         toggle_btn.pack(anchor="w", pady=(0, 5))
 
         col_map = {"Station ID": "station_id", "Station Name": "station_name", "Active": "is_active"}
@@ -254,12 +273,29 @@ class CrudFrame(ctk.CTkFrame):
         ctk.CTkButton(bf, text="Update", fg_color="#b8860b", command=self.update_station).pack(side="left", padx=5)
         ctk.CTkButton(bf, text="Delete", fg_color="red", command=self.delete_station).pack(side="left", padx=5)
         ctk.CTkButton(bf, text="Refresh", command=self.load_stations).pack(side="left", padx=5)
+        
+        # Pagination Buttons
+        ctk.CTkButton(bf, text="< Prev 100", fg_color="#1f538d", command=self.prev_100_stations).pack(side="left", padx=15)
+        ctk.CTkButton(bf, text="Next 100 >", fg_color="#1f538d", command=self.next_100_stations).pack(side="left", padx=5)
 
-    def load_stations(self, where_clause="", sort_clause="", params=()):
+    def next_100_stations(self):
+        self.st_offset += 100
+        self.load_stations(use_offset=True)
+
+    def prev_100_stations(self):
+        self.st_offset = max(0, self.st_offset - 100)
+        self.load_stations(use_offset=True)
+
+    def load_stations(self, where_clause="", sort_clause="", params=(), use_offset=False):
+        if not use_offset:
+            self.st_offset = 0
+            
         base_query = "SELECT station_id, station_name, description, is_active FROM public.kitchen_station"
         where = f" WHERE {where_clause}" if where_clause else ""
         sort = sort_clause if sort_clause else " ORDER BY station_id ASC"
-        self.stations_table.populate_data(base_query + where + sort, params)
+        pagination = f" LIMIT 100 OFFSET {self.st_offset}"
+        
+        self.stations_table.populate_data(base_query + where + sort + pagination, params)
 
     def fetch_station(self):
         st_id = self.st_id_entry.get()
@@ -289,8 +325,9 @@ class CrudFrame(ctk.CTkFrame):
     # ==========================================
     def setup_orders_crud(self):
         self.ko_tab_logic = BaseCrudTab(self.tab_orders)
+        self.ko_offset = 0
         
-        toggle_btn = ctk.CTkButton(self.tab_orders, text="🔍 Filter & Sort", width=120, command=lambda: self.toggle_panel(self.ko_filter_panel))
+        toggle_btn = ctk.CTkButton(self.tab_orders, text="剥 Filter & Sort", width=120, command=lambda: self.toggle_panel(self.ko_filter_panel))
         toggle_btn.pack(anchor="w", pady=(0, 5))
 
         col_map = {"Kitchen Order ID": "ko.kitchen_order_id", "Ext. Order ID": "ko.order_id", "Status": "ko.status", "Station Name": "ks.station_name"}
@@ -322,8 +359,23 @@ class CrudFrame(ctk.CTkFrame):
         ctk.CTkButton(bf, text="Update", fg_color="#b8860b", command=self.update_order).pack(side="left", padx=5)
         ctk.CTkButton(bf, text="Delete", fg_color="red", command=self.delete_order).pack(side="left", padx=5)
         ctk.CTkButton(bf, text="Refresh", command=self.load_orders).pack(side="left", padx=5)
+        
+        # Pagination Buttons
+        ctk.CTkButton(bf, text="< Prev 100", fg_color="#1f538d", command=self.prev_100_orders).pack(side="left", padx=15)
+        ctk.CTkButton(bf, text="Next 100 >", fg_color="#1f538d", command=self.next_100_orders).pack(side="left", padx=5)
 
-    def load_orders(self, where_clause="", sort_clause="", params=()):
+    def next_100_orders(self):
+        self.ko_offset += 100
+        self.load_orders(use_offset=True)
+
+    def prev_100_orders(self):
+        self.ko_offset = max(0, self.ko_offset - 100)
+        self.load_orders(use_offset=True)
+
+    def load_orders(self, where_clause="", sort_clause="", params=(), use_offset=False):
+        if not use_offset:
+            self.ko_offset = 0
+            
         try:
             self.ko_station_map = shared.fetch_fk_mapping("SELECT station_name, station_id FROM public.kitchen_station")
             self.ko_station_cb.configure(values=["None"] + list(self.ko_station_map.keys()))
@@ -334,8 +386,10 @@ class CrudFrame(ctk.CTkFrame):
             FROM public.kitchen_order ko LEFT JOIN public.kitchen_station ks ON ko.station_id = ks.station_id
         """
         where = f" WHERE {where_clause}" if where_clause else ""
-        sort = sort_clause if sort_clause else " ORDER BY ko.kitchen_order_id DESC LIMIT 100"
-        self.ko_table.populate_data(base_query + where + sort, params)
+        sort = sort_clause if sort_clause else " ORDER BY ko.kitchen_order_id DESC"
+        pagination = f" LIMIT 100 OFFSET {self.ko_offset}"
+        
+        self.ko_table.populate_data(base_query + where + sort + pagination, params)
 
     def fetch_order(self):
         ko_id = self.ko_id_entry.get()
@@ -372,8 +426,9 @@ class CrudFrame(ctk.CTkFrame):
     # ==========================================
     def setup_menu_crud(self):
         self.menu_logic = BaseCrudTab(self.tab_menu)
+        self.menu_offset = 0
         
-        toggle_btn = ctk.CTkButton(self.tab_menu, text="🔍 Filter & Sort", width=120, command=lambda: self.toggle_panel(self.mi_filter_panel))
+        toggle_btn = ctk.CTkButton(self.tab_menu, text="剥 Filter & Sort", width=120, command=lambda: self.toggle_panel(self.mi_filter_panel))
         toggle_btn.pack(anchor="w", pady=(0, 5))
 
         col_map = {"Menu ID": "menu_item_id", "Item Name": "item_name", "Price": "price", "Available": "is_available"}
@@ -402,12 +457,29 @@ class CrudFrame(ctk.CTkFrame):
         ctk.CTkButton(bf, text="Update", fg_color="#b8860b", command=self.update_menu).pack(side="left", padx=5)
         ctk.CTkButton(bf, text="Delete", fg_color="red", command=self.delete_menu).pack(side="left", padx=5)
         ctk.CTkButton(bf, text="Refresh", command=self.load_menu).pack(side="left", padx=5)
+        
+        # Pagination Buttons
+        ctk.CTkButton(bf, text="< Prev 100", fg_color="#1f538d", command=self.prev_100_menu).pack(side="left", padx=15)
+        ctk.CTkButton(bf, text="Next 100 >", fg_color="#1f538d", command=self.next_100_menu).pack(side="left", padx=5)
 
-    def load_menu(self, where_clause="", sort_clause="", params=()):
+    def next_100_menu(self):
+        self.menu_offset += 100
+        self.load_menu(use_offset=True)
+
+    def prev_100_menu(self):
+        self.menu_offset = max(0, self.menu_offset - 100)
+        self.load_menu(use_offset=True)
+
+    def load_menu(self, where_clause="", sort_clause="", params=(), use_offset=False):
+        if not use_offset:
+            self.menu_offset = 0
+            
         base_query = "SELECT menu_item_id, item_name, price, is_available FROM partners.menu_item"
         where = f" WHERE {where_clause}" if where_clause else ""
-        sort = sort_clause if sort_clause else " ORDER BY menu_item_id LIMIT 100"
-        self.menu_table.populate_data(base_query + where + sort, params)
+        sort = sort_clause if sort_clause else " ORDER BY menu_item_id"
+        pagination = f" LIMIT 100 OFFSET {self.menu_offset}"
+        
+        self.menu_table.populate_data(base_query + where + sort + pagination, params)
 
     def fetch_menu(self):
         m_id = self.mi_id_entry.get()
@@ -434,16 +506,13 @@ class CrudFrame(ctk.CTkFrame):
 
 
     # ==========================================
-    # PREPARATION TASKS CRUD
-    # ==========================================
-# ==========================================
     # PREPARATION TASKS CRUD (With Pagination)
     # ==========================================
     def setup_tasks_crud(self):
         self.task_logic = BaseCrudTab(self.tab_tasks)
         self.task_offset = 0 
         
-        toggle_btn = ctk.CTkButton(self.tab_tasks, text="🔍 Filter & Sort", width=120, command=lambda: self.toggle_panel(self.tk_filter_panel))
+        toggle_btn = ctk.CTkButton(self.tab_tasks, text="剥 Filter & Sort", width=120, command=lambda: self.toggle_panel(self.tk_filter_panel))
         toggle_btn.pack(anchor="w", pady=(0, 5))
 
         col_map = {
@@ -580,8 +649,7 @@ class CrudFrame(ctk.CTkFrame):
             INSERT INTO public.preparation_task (kitchen_order_id, task_description, status, priority_level, chef_id) 
             VALUES (%s, %s, %s, %s, %s)
         """
-        self.task_logic.execute_query(query, (order_id, desc, status, priority, chef_id))
-        self.load_tasks()
+        self.task_logic.exec_dml(query, (order_id, desc, status, priority, chef_id), "Inserted", self.load_tasks)
 
     def update_task(self):
         task_id = self.tk_id_entry.get().strip()
@@ -601,8 +669,7 @@ class CrudFrame(ctk.CTkFrame):
             SET kitchen_order_id=%s, task_description=%s, status=%s, priority_level=%s, chef_id=%s 
             WHERE task_id=%s
         """
-        self.task_logic.execute_query(query, (order_id, desc, status, priority, chef_id, task_id))
-        self.load_tasks()
+        self.task_logic.exec_dml(query, (order_id, desc, status, priority, chef_id, task_id), "Updated", self.load_tasks)
 
     def delete_task(self):
         task_id = self.tk_id_entry.get().strip()
@@ -611,8 +678,7 @@ class CrudFrame(ctk.CTkFrame):
             return
             
         query = "DELETE FROM public.preparation_task WHERE task_id=%s"
-        self.task_logic.execute_query(query, (task_id,))
-        self.load_tasks()
+        self.task_logic.exec_dml(query, (task_id,), "Deleted", self.load_tasks)
 
 
     # ==========================================
@@ -620,8 +686,9 @@ class CrudFrame(ctk.CTkFrame):
     # ==========================================
     def setup_hygiene_crud(self):
         self.hygiene_logic = BaseCrudTab(self.tab_hygiene)
+        self.hyg_offset = 0
         
-        toggle_btn = ctk.CTkButton(self.tab_hygiene, text="🔍 Filter & Sort", width=120, command=lambda: self.toggle_panel(self.hyg_filter_panel))
+        toggle_btn = ctk.CTkButton(self.tab_hygiene, text="剥 Filter & Sort", width=120, command=lambda: self.toggle_panel(self.hyg_filter_panel))
         toggle_btn.pack(anchor="w", pady=(0, 5))
 
         col_map = {"Inspection ID": "h.inspection_id", "Station": "ks.station_name", "Score": "h.cleanliness_score", "Status": "h.status"}
@@ -658,8 +725,23 @@ class CrudFrame(ctk.CTkFrame):
         ctk.CTkButton(bf, text="Update", fg_color="#b8860b", command=self.update_hygiene).pack(side="left", padx=5)
         ctk.CTkButton(bf, text="Delete", fg_color="red", command=self.delete_hygiene).pack(side="left", padx=5)
         ctk.CTkButton(bf, text="Refresh", command=self.load_hygiene).pack(side="left", padx=5)
+        
+        # Pagination Buttons
+        ctk.CTkButton(bf, text="< Prev 100", fg_color="#1f538d", command=self.prev_100_hygiene).pack(side="left", padx=15)
+        ctk.CTkButton(bf, text="Next 100 >", fg_color="#1f538d", command=self.next_100_hygiene).pack(side="left", padx=5)
 
-    def load_hygiene(self, where_clause="", sort_clause="", params=()):
+    def next_100_hygiene(self):
+        self.hyg_offset += 100
+        self.load_hygiene(use_offset=True)
+
+    def prev_100_hygiene(self):
+        self.hyg_offset = max(0, self.hyg_offset - 100)
+        self.load_hygiene(use_offset=True)
+
+    def load_hygiene(self, where_clause="", sort_clause="", params=(), use_offset=False):
+        if not use_offset:
+            self.hyg_offset = 0
+            
         try:
             self.hyg_st_map = shared.fetch_fk_mapping("SELECT station_name, station_id FROM public.kitchen_station")
             self.hyg_c_map = shared.fetch_fk_mapping("SELECT first_name || ' ' || last_name, chef_id FROM public.chef")
@@ -674,8 +756,10 @@ class CrudFrame(ctk.CTkFrame):
             JOIN public.chef c ON h.inspector_id = c.chef_id
         """
         where = f" WHERE {where_clause}" if where_clause else ""
-        sort = sort_clause if sort_clause else " ORDER BY h.inspection_id DESC LIMIT 50"
-        self.hyg_table.populate_data(base_query + where + sort, params)
+        sort = sort_clause if sort_clause else " ORDER BY h.inspection_id DESC"
+        pagination = f" LIMIT 100 OFFSET {self.hyg_offset}"
+        
+        self.hyg_table.populate_data(base_query + where + sort + pagination, params)
 
     def fetch_hygiene(self):
         h_id = self.hyg_id_entry.get()
@@ -715,8 +799,9 @@ class CrudFrame(ctk.CTkFrame):
     # ==========================================
     def setup_logs_crud(self):
         self.log_logic = BaseCrudTab(self.tab_logs)
+        self.log_offset = 0
         
-        toggle_btn = ctk.CTkButton(self.tab_logs, text="🔍 Filter & Sort", width=120, command=lambda: self.toggle_panel(self.log_filter_panel))
+        toggle_btn = ctk.CTkButton(self.tab_logs, text="剥 Filter & Sort", width=120, command=lambda: self.toggle_panel(self.log_filter_panel))
         toggle_btn.pack(anchor="w", pady=(0, 5))
 
         col_map = {"Log ID": "l.log_id", "Chef Name": "c.first_name", "Menu Item": "m.item_name", "Prep Time": "l.preparation_time"}
@@ -753,8 +838,23 @@ class CrudFrame(ctk.CTkFrame):
         ctk.CTkButton(bf, text="Update", fg_color="#b8860b", command=self.update_log).pack(side="left", padx=5)
         ctk.CTkButton(bf, text="Delete", fg_color="red", command=self.delete_log).pack(side="left", padx=5)
         ctk.CTkButton(bf, text="Refresh", command=self.load_logs).pack(side="left", padx=5)
+        
+        # Pagination Buttons
+        ctk.CTkButton(bf, text="< Prev 100", fg_color="#1f538d", command=self.prev_100_logs).pack(side="left", padx=15)
+        ctk.CTkButton(bf, text="Next 100 >", fg_color="#1f538d", command=self.next_100_logs).pack(side="left", padx=5)
 
-    def load_logs(self, where_clause="", sort_clause="", params=()):
+    def next_100_logs(self):
+        self.log_offset += 100
+        self.load_logs(use_offset=True)
+
+    def prev_100_logs(self):
+        self.log_offset = max(0, self.log_offset - 100)
+        self.load_logs(use_offset=True)
+
+    def load_logs(self, where_clause="", sort_clause="", params=(), use_offset=False):
+        if not use_offset:
+            self.log_offset = 0
+            
         try:
             self.lg_c_map = shared.fetch_fk_mapping("SELECT first_name || ' ' || last_name, chef_id FROM public.chef")
             self.lg_m_map = shared.fetch_fk_mapping("SELECT item_name, menu_item_id FROM partners.menu_item")
@@ -769,8 +869,10 @@ class CrudFrame(ctk.CTkFrame):
             JOIN partners.menu_item m ON l.menu_item_id = m.menu_item_id
         """
         where = f" WHERE {where_clause}" if where_clause else ""
-        sort = sort_clause if sort_clause else " ORDER BY l.log_id DESC LIMIT 50"
-        self.log_table.populate_data(base_query + where + sort, params)
+        sort = sort_clause if sort_clause else " ORDER BY l.log_id DESC"
+        pagination = f" LIMIT 100 OFFSET {self.log_offset}"
+        
+        self.log_table.populate_data(base_query + where + sort + pagination, params)
 
     def fetch_log(self):
         l_id = self.lg_id_entry.get()

@@ -11,12 +11,6 @@ CREATE TABLE mappings.station_menu_item_link (
     CONSTRAINT station_menu_item_unique UNIQUE (local_station_id, menu_item_id) -- Prevent duplicate links for the same station and item
 );
 
-
-
-
-
-
-
 -- Insert mapped menu items into the station links table
 INSERT INTO mappings.station_menu_item_link (local_station_id, menu_item_id) VALUES
 (12, 1), (15, 2), (3, 3), (4, 4), (14, 5), (13, 6), (15, 7), (14, 8), (15, 9), (14, 10),

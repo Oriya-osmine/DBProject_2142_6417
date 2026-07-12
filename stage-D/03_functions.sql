@@ -8,8 +8,6 @@
 -- Function 1: Station Readiness Report
 -- get_active_station_menu(p_station_id INT)
 -- Returns a refcursor with all available menu items for a station.
--- Optimization: Added early validation. The refcursor itself is 
--- already highly efficient for streaming data to applications!
 -- -------------------------------------------------------------
 DROP FUNCTION IF EXISTS public.get_active_station_menu(INT);
 
@@ -62,7 +60,6 @@ $$;
 -- -------------------------------------------------------------
 -- Function 2: Chef Workload Calculator
 -- calculate_chef_workload(p_chef_id INT)
--- Optimization: Completely removes the slow FOR...LOOP (RBAR) 
 -- and replaces it with a blazing fast set-based SUM aggregate.
 -- -------------------------------------------------------------
 DROP FUNCTION IF EXISTS public.calculate_chef_workload(INT);
